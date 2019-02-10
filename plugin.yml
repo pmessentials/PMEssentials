@@ -1,6 +1,6 @@
 name: PMEssentials
 main: pmessentials\PMEssentials\Main
-version: 1.0.0
+version: 1.0.0-dev
 api: 4.0.0
 load: POSTWORLD
 author: pmessentials
@@ -38,3 +38,22 @@ permissions:
      pmessentials.feed.other:
       default: op
       description: "feed someone else"
+   pmessentials.gamemode:
+    default: op
+    description: "change your gamemode"
+    children:
+     pmessentials.gamemode.survival:
+      default: true
+      description: "change your gamemode to survival"
+     pmessentials.gamemode.creative:
+      default: true
+      description: "change your gamemode to creative"
+     pmessentials.gamemode.adventure:
+      default: true
+      description: "change your gamemode to adventure"
+     pmessentials.gamemode.spectator:
+      default: true
+      description: "change your gamemode to spectator"
+     pmessentials.gamemode.other:
+      default: op
+      description: "change someone else's gamemode"

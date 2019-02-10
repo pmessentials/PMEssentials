@@ -22,12 +22,23 @@ class NickCommand extends Command {
         if(isset($args[1]) && $sender->hasPermission("pmessentials.nick.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[1]);
             if(empty($match)){
-                $sender->sendMessage(TextFormat::colorize("&6Player with name &c".$args[1]."&r&6 not found!"));
+                $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[1]."&r&4 not found!"));
                 return true;
             }
             $player = $match[0];
         }else{
             $player = $sender;
+        }
+
+        if(!isset($args[0])){
+            $player->setDisplayName($player->getName());
+            if($player === $sender){
+                $sender->sendMessage(TextFormat::colorize("&6Your nick has been cleared."));
+            }else{
+                $sender->sendMessage(TextFormat::colorize("&6Cleared ".$player->getName()."&6's nick"));
+                $player->sendMessage(TextFormat::colorize("&6Your nick has been cleared."));
+            }
+            return true;
         }
 
         $str = str_replace("+", " ", $args[0]);
@@ -41,7 +52,7 @@ class NickCommand extends Command {
         }
         $player->setDisplayName($str.TextFormat::RESET);
         if($player === $sender){
-            $sender->sendMessage(TextFormat::colorize("&6Set your nick to &r&c".$str."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$str."&r&6."));
         }else{
             $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's nick to &r&c".$str."&r&6."));
             $player->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$str."&r&6."));
