@@ -67,3 +67,9 @@ permissions:
      pmessentials.size.other:
       default: op
       description: "change someone's size"
+   pmessentials.realname:
+    default: true
+    description: "view someone's real name"
+   pmessentials.usage:
+    default: true
+    description: "view the usage of a command"
