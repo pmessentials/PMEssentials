@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\NickCommand;
 use pocketmine\command\PluginCommand;
@@ -31,6 +32,13 @@ class Main extends PluginBase{
         $heal->setPermission("pmessentials.heal");
         $heal->setUsage("/heal [player]");
         $this->getServer()->getCommandMap()->register("pmessentials", $heal, "heal");
+
+        $feed = new PluginCommand("feed", $this);
+        $feed->setExecutor(new FeedCommand($this, $this->api));
+        $feed->setDescription("feed a player");
+        $feed->setPermission("pmessentials.feed");
+        $feed->setUsage("/feed [player]");
+        $this->getServer()->getCommandMap()->register("pmessentials", $feed, "feed");
 	}
 
 	public function onDisable() : void{

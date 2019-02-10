@@ -31,3 +31,10 @@ permissions:
      pmessentials.heal.other:
       default: op
       description: "heal someone else"
+   pmessentials.feed:
+    default: op
+    description: "feed yourself"
+    children:
+     pmessentials.feed.other:
+      default: op
+      description: "feed someone else"
