@@ -57,3 +57,6 @@ permissions:
      pmessentials.gamemode.other:
       default: op
       description: "change someone else's gamemode"
+   pmessentials.i:
+    default: op
+    description: "gives you an item"

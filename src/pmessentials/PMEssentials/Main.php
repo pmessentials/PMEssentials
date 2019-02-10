@@ -8,6 +8,7 @@ use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\GameModeCommand;
 use pmessentials\PMEssentials\command\HealCommand;
+use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
 use pocketmine\command\PluginCommand;
 use pocketmine\GameMode;
@@ -52,6 +53,13 @@ class Main extends PluginBase{
         $gm->setAliases(["gm", "gms", "gmc", "gma", "gmspc", "gmv"]);
         $gm->setUsage("/gamemode {mode} [player]");
         $this->getServer()->getCommandMap()->register("pmessentials", $gm, "gamemode");
+
+        $i = new PluginCommand("i", $this);
+        $i->setExecutor(new ICommand($this, $this->api));
+        $i->setDescription("gives you an item");
+        $i->setPermission("pmessentials.i");
+        $i->setUsage("/i {item}:[meta] [count]");
+        $this->getServer()->getCommandMap()->register("pmessentials", $i, "i");
 	}
 
 	public function onDisable() : void{
