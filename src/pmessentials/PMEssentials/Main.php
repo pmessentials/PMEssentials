@@ -10,6 +10,7 @@ use pmessentials\PMEssentials\command\GameModeCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
+use pmessentials\PMEssentials\command\SizeCommand;
 use pocketmine\command\PluginCommand;
 use pocketmine\GameMode;
 use pocketmine\plugin\PluginBase;
@@ -60,6 +61,14 @@ class Main extends PluginBase{
         $i->setPermission("pmessentials.i");
         $i->setUsage("/i {item}:[meta] [count]");
         $this->getServer()->getCommandMap()->register("pmessentials", $i, "i");
+
+        $size = new PluginCommand("size", $this);
+        $size->setExecutor(new SizeCommand($this, $this->api));
+        $size->setDescription("resize a player");
+        $size->setPermission("pmessentials.size");
+        $size->setAliases(["scale"]);
+        $size->setUsage("/i {item}:[meta] [count]");
+        $this->getServer()->getCommandMap()->register("pmessentials", $size, "size");
 	}
 
 	public function onDisable() : void{

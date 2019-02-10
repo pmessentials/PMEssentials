@@ -60,3 +60,10 @@ permissions:
    pmessentials.i:
     default: op
     description: "gives you an item"
+   pmessentials.size:
+    default: op
+    description: "change your size"
+    children:
+     pmessentials.size.other:
+      default: op
+      description: "change someone's size"

@@ -29,6 +29,10 @@ class HealCommand extends Command {
         }else{
             $player = $sender;
         }
+        if(!$player instanceof Player){
+            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
+            return true;
+        }
         $player->setHealth($player->getMaxHealth());
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6You have been healed!"));

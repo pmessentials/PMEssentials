@@ -20,6 +20,10 @@ class ICommand extends Command {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
+        if(!$sender instanceof Player){
+            $sender->sendMessage(TextFormat::colorize("&4You can't execute this command from the console."));
+            return true;
+        }
         if(isset($args[0])){
             try{
                 $item = ItemFactory::fromString($args[0]);

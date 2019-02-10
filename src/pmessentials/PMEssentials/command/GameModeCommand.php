@@ -97,6 +97,11 @@ class GameModeCommand extends Command {
             $player = $sender;
         }
 
+        if(!$player instanceof Player){
+            $sender->sendMessage(TextFormat::colorize("&6Target needs to be a player"));
+            return true;
+        }
+
         $player->setGamemode($gm);
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".$gmstr."&r&6."));

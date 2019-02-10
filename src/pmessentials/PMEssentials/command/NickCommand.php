@@ -30,6 +30,11 @@ class NickCommand extends Command {
             $player = $sender;
         }
 
+        if(!$player instanceof Player){
+            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
+            return true;
+        }
+
         if(!isset($args[0])){
             $player->setDisplayName($player->getName());
             if($player === $sender){
