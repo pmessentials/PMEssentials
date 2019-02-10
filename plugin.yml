@@ -12,7 +12,7 @@ permissions:
   description: "Every PME permission"
   children:
    pmessentials.nick:
-    default: true
+    default: op
     description: "change your nickname"
     children:
      pmessentials.nick.color:
@@ -24,3 +24,10 @@ permissions:
      pmessentials.nick.other:
       default: op
       description: "change someone else's nickname"
+   pmessentials.heal:
+    default: op
+    description: "heal yourself"
+    children:
+     pmessentials.heal.other:
+      default: op
+      description: "heal someone else"
