@@ -10,9 +10,11 @@ use pocketmine\utils\TextFormat;
 class API{
 
     private $plugin;
+    private static $api;
 
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
+        self::$api = $this;
     }
 
     public function matchNicknames(string $partialName) : array{
@@ -28,5 +30,9 @@ class API{
         }
 
         return $matchedPlayers;
+    }
+
+    public static function getAPI() : API{
+        return self::$api;
     }
 }

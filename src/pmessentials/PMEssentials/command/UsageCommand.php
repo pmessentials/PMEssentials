@@ -14,10 +14,6 @@ use pocketmine\utils\TextFormat;
 
 class UsageCommand extends Command {
 
-    public function __construct(Main $plugin, API $api){
-        parent::__construct($plugin, $api);
-    }
-
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!isset($args[0])){

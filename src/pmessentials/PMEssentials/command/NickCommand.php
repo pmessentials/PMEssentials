@@ -13,10 +13,6 @@ use pocketmine\utils\TextFormat;
 
 class NickCommand extends Command {
 
-    public function __construct(Main $plugin, API $api){
-        parent::__construct($plugin, $api);
-    }
-
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[1]) && $sender->hasPermission("pmessentials.nick.other")){

@@ -10,19 +10,33 @@ use pmessentials\PMEssentials\command\GameModeCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
+use pmessentials\PMEssentials\command\PingCommand;
+use pmessentials\PMEssentials\command\PowertoolCommand;
 use pmessentials\PMEssentials\command\RealNameCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
+use pmessentials\PMEssentials\listener\PowertoolListener;
+use pmessentials\PMEssentials\module\ModuleManager;
+use pmessentials\PMEssentials\module\PowertoolModule;
 use pocketmine\command\PluginCommand;
 use pocketmine\GameMode;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase{
 
+    /** @var API */
     public $api;
+    /** @var ModuleManager */
+    public $moduleManager;
+
+    public $listeners = [];
 
 	public function onEnable() : void{
 	    $this->api = new API($this);
+	    $this->moduleManager = new ModuleManager($this);
+	    $this->moduleManager->addModule(new PowertoolModule($this));
+
+	    $this->listeners["PowertoolListener"] = new PowertoolListener($this);
 
         $nick = new PluginCommand("nick", $this);
         $nick->setExecutor(new NickCommand($this, $this->api));
@@ -86,6 +100,21 @@ class Main extends PluginBase{
         $usage->setAliases(["howtouse"]);
         $usage->setUsage("/usage <command>");
         $this->getServer()->getCommandMap()->register("pmessentials", $usage, "usage");
+
+        $pt = new PluginCommand("powertool", $this);
+        $pt->setExecutor(new PowertoolCommand($this, $this->api));
+        $pt->setDescription("Assign a command to an item");
+        $pt->setPermission("pmessentials.powertool.set");
+        $pt->setAliases(["pt"]);
+        $pt->setUsage("/powertool <command>");
+        $this->getServer()->getCommandMap()->register("pmessentials", $pt, "powertool");
+
+        $ping = new PluginCommand("ping", $this);
+        $ping->setExecutor(new PingCommand($this, $this->api));
+        $ping->setDescription("Pong!");
+        $ping->setPermission("pmessentials.ping");
+        $ping->setUsage("/ping");
+        $this->getServer()->getCommandMap()->register("pmessentials", $ping, "ping");
 	}
 
 	public function onDisable() : void{
