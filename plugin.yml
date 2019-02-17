@@ -86,3 +86,10 @@ permissions:
    pmessentials.ping:
     default: true
     description: "Pong!"
+   pmessentials.fly:
+    default: op
+    description: "allows toggling flight mode for yourself"
+    children:
+     pmessentials.fly.other:
+      default: op
+      description: "allows toggling flight mode for others"

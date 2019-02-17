@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\Main;
+use pmessentials\PMEssentials\module\ModuleManager;
+use pmessentials\PMEssentials\module\PowertoolModule;
 use pocketmine\utils\TextFormat;
 
 class API{
 
     private $plugin;
-    private static $api;
+    private static $instance;
 
-    public function __construct(Main $plugin){
+    private function __construct(Main $plugin){
         $this->plugin = $plugin;
-        self::$api = $this;
     }
 
     public function matchNicknames(string $partialName) : array{
@@ -33,6 +34,19 @@ class API{
     }
 
     public static function getAPI() : API{
-        return self::$api;
+        if (self::$instance == null)
+        {
+            self::$instance = new API(Main::getInstance());
+        }
+
+        return self::$instance;
+    }
+
+    public function getPlugin() : Main{
+        return $this->plugin;
+    }
+
+    public function getModuleManager() : ModuleManager{
+        return $this->plugin->moduleManager;
     }
 }

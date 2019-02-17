@@ -18,7 +18,7 @@ abstract class Command implements CommandExecutor {
 
     public function __construct(Main $plugin, API $api){
         $this->plugin = $plugin;
-        $this->api = $api;
+        $this->api = API::getAPI();
     }
 
     abstract public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args) : bool;
