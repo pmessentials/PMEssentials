@@ -19,6 +19,7 @@ abstract class ModuleBase{
         $this->plugin = $plugin;
         $this->api = API::getAPI();
         $this->name = "ModuleBase";
+        $this->onStart();
     }
 
     public function getName() : string{

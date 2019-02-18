@@ -93,3 +93,13 @@ permissions:
      pmessentials.fly.other:
       default: op
       description: "allows toggling flight mode for others"
+   pmessentials.vanish:
+    default: op
+    description: "go invisible"
+    children:
+     pmessentials.vanish.other:
+      default: op
+      description: "make someone else go invisible"
+     pmessentials.vanish.see:
+      default: op
+      description: "allows you to see vanished players"

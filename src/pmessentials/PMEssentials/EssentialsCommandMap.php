@@ -15,9 +15,11 @@ use pmessentials\PMEssentials\command\PowertoolCommand;
 use pmessentials\PMEssentials\command\RealNameCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
+use pmessentials\PMEssentials\command\VanishCommand;
 use pmessentials\PMEssentials\listener\PowertoolListener;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command;
+use pocketmine\command\CommandMap;
 use pocketmine\command\PluginCommand;
 use pocketmine\utils\TextFormat;
 
@@ -41,7 +43,10 @@ class EssentialsCommandMap{
 
     private function __construct(Main $plugin){
         $this->plugin = $plugin;
+        $this->registerDefaultCommands();
+    }
 
+    private function registerDefaultCommands() : void{
         try{
             $nick = new PluginCommand("nick", $this->plugin);
             $nick->setExecutor(new NickCommand($this->plugin, self::$api));
@@ -182,6 +187,18 @@ class EssentialsCommandMap{
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: fly"));
             $this->error($e);
         }
+
+        try{
+            $fly = new PluginCommand("vanish", $this->plugin);
+            $fly->setExecutor(new VanishCommand($this->plugin, self::$api));
+            $fly->setDescription("enable/disable vanish");
+            $fly->setPermission("pmessentials.vanish");
+            $fly->setUsage("/vanish [player]");
+            $this->register($fly);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: vanish"));
+            $this->error($e);
+        }
     }
 
     public function register(Command $command) : void{
@@ -189,7 +206,27 @@ class EssentialsCommandMap{
         $this->plugin->getServer()->getCommandMap()->register("pmessentials", $command, $command->getName());
     }
 
-    public function error(\Error $e) : void{
+    public function unregister(Command $command) : bool{
+        foreach($this->commands as $lbl => $cmd){
+            if($cmd === $command){
+                unset($this->commands[$lbl]);
+            }
+        }
+
+        $this->plugin->getServer()->getCommandMap()->unregister($command);
+
+        return true;
+    }
+
+    public function getCommand(string $name) : Command{
+        return $this->commands[$name] ?? null;
+    }
+
+    public function getCommands() : array{
+        return $this->commands;
+    }
+
+    private function error(\Error $e) : void{
         $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("&cError ".$e->getCode().": ".$e->getMessage()." on line ".$e->getLine()." in file ".$e->getFile()));
     }
 }

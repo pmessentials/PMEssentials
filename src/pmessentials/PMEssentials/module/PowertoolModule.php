@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\module;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\listener\PowertoolListener;
 use pmessentials\PMEssentials\Main;
 use pocketmine\item\Item;
 use pocketmine\nbt\tag\StringTag;
@@ -21,7 +22,7 @@ class PowertoolModule extends ModuleBase {
     }
 
     public function onStart() : void{
-
+        $this->plugin->listeners["PowertoolListener"] = new PowertoolListener($this->plugin);
     }
 
     public function disablePowertool(Item $item) : item{

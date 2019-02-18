@@ -49,4 +49,8 @@ class API{
     public function getModuleManager() : ModuleManager{
         return $this->plugin->moduleManager;
     }
+
+    public function getCommandMap() : EssentialsCommandMap{
+        return $this->plugin->commandMap;
+    }
 }

@@ -17,7 +17,7 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [x] /i
 - [x] /size
 - [x] /powertool
-- [ ] /vanish
+- [x] /vanish
 - [ ] /afk
 - [ ] /tpa
 - [ ] /tpahere
