@@ -16,7 +16,7 @@ abstract class Command implements CommandExecutor {
     protected $plugin;
     protected $api;
 
-    public function __construct(Main $plugin, API $api){
+    public function __construct(Main $plugin){
         $this->plugin = $plugin;
         $this->api = API::getAPI();
     }

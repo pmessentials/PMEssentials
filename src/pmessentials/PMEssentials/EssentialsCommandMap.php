@@ -49,7 +49,7 @@ class EssentialsCommandMap{
     private function registerDefaultCommands() : void{
         try{
             $nick = new PluginCommand("nick", $this->plugin);
-            $nick->setExecutor(new NickCommand($this->plugin, self::$api));
+            $nick->setExecutor(new NickCommand($this->plugin));
             $nick->setDescription("change your nickname");
             $nick->setPermission("pmessentials.nick");
             $nick->setAliases(["name", "nickname"]);
@@ -63,7 +63,7 @@ class EssentialsCommandMap{
 
         try{
             $heal = new PluginCommand("heal", $this->plugin);
-            $heal->setExecutor(new HealCommand($this->plugin, self::$api));
+            $heal->setExecutor(new HealCommand($this->plugin));
             $heal->setDescription("heal a player");
             $heal->setPermission("pmessentials.heal");
             $heal->setUsage("/heal [player]");
@@ -75,7 +75,7 @@ class EssentialsCommandMap{
 
         try{
             $feed = new PluginCommand("feed", $this->plugin);
-            $feed->setExecutor(new FeedCommand($this->plugin, self::$api));
+            $feed->setExecutor(new FeedCommand($this->plugin));
             $feed->setDescription("feed a player");
             $feed->setPermission("pmessentials.feed");
             $feed->setUsage("/feed [player]");
@@ -90,7 +90,7 @@ class EssentialsCommandMap{
             $this->plugin->getServer()->getCommandMap()->unregister($pmgm);
 
             $gm = new PluginCommand("gamemode", $this->plugin);
-            $gm->setExecutor(new GameModeCommand($this->plugin, self::$api));
+            $gm->setExecutor(new GameModeCommand($this->plugin));
             $gm->setDescription("change your gamemode");
             $gm->setPermission("pmessentials.gamemode");
             $gm->setAliases(["gm", "gms", "gmc", "gma", "gmspc", "gmv"]);
@@ -103,7 +103,7 @@ class EssentialsCommandMap{
 
         try{
             $i = new PluginCommand("i", $this->plugin);
-            $i->setExecutor(new ICommand($this->plugin, self::$api));
+            $i->setExecutor(new ICommand($this->plugin));
             $i->setDescription("gives you an item");
             $i->setPermission("pmessentials.i");
             $i->setUsage("/i <item>:[meta] [count]");
@@ -115,7 +115,7 @@ class EssentialsCommandMap{
 
         try{
             $size = new PluginCommand("size", $this->plugin);
-            $size->setExecutor(new SizeCommand($this->plugin, self::$api));
+            $size->setExecutor(new SizeCommand($this->plugin));
             $size->setDescription("resize a player");
             $size->setPermission("pmessentials.size");
             $size->setAliases(["scale"]);
@@ -128,7 +128,7 @@ class EssentialsCommandMap{
 
         try{
             $realname = new PluginCommand("realname", $this->plugin);
-            $realname->setExecutor(new RealNameCommand($this->plugin, self::$api));
+            $realname->setExecutor(new RealNameCommand($this->plugin));
             $realname->setDescription("view someone's real name");
             $realname->setPermission("pmessentials.realname");
             $realname->setUsage("/realname <nick>");
@@ -140,7 +140,7 @@ class EssentialsCommandMap{
 
         try{
             $usage = new PluginCommand("usage", $this->plugin);
-            $usage->setExecutor(new UsageCommand($this->plugin, self::$api));
+            $usage->setExecutor(new UsageCommand($this->plugin));
             $usage->setDescription("Check a command's usage");
             $usage->setPermission("pmessentials.usage");
             $usage->setAliases(["howtouse"]);
@@ -153,7 +153,7 @@ class EssentialsCommandMap{
 
         try{
             $pt = new PluginCommand("powertool", $this->plugin);
-            $pt->setExecutor(new PowertoolCommand($this->plugin, self::$api));
+            $pt->setExecutor(new PowertoolCommand($this->plugin));
             $pt->setDescription("Assign a command to an item");
             $pt->setPermission("pmessentials.powertool.set");
             $pt->setAliases(["pt"]);
@@ -166,7 +166,7 @@ class EssentialsCommandMap{
 
         try{
             $ping = new PluginCommand("ping", $this->plugin);
-            $ping->setExecutor(new PingCommand($this->plugin, self::$api));
+            $ping->setExecutor(new PingCommand($this->plugin));
             $ping->setDescription("Pong!");
             $ping->setPermission("pmessentials.ping");
             $ping->setUsage("/ping");
@@ -178,7 +178,7 @@ class EssentialsCommandMap{
 
         try{
             $fly = new PluginCommand("fly", $this->plugin);
-            $fly->setExecutor(new FlyCommand($this->plugin, self::$api));
+            $fly->setExecutor(new FlyCommand($this->plugin));
             $fly->setDescription("enable/disable flight");
             $fly->setPermission("pmessentials.fly");
             $fly->setUsage("/fly [player]");
@@ -189,12 +189,13 @@ class EssentialsCommandMap{
         }
 
         try{
-            $fly = new PluginCommand("vanish", $this->plugin);
-            $fly->setExecutor(new VanishCommand($this->plugin, self::$api));
-            $fly->setDescription("enable/disable vanish");
-            $fly->setPermission("pmessentials.vanish");
-            $fly->setUsage("/vanish [player]");
-            $this->register($fly);
+            $v = new PluginCommand("vanish", $this->plugin);
+            $v->setExecutor(new VanishCommand($this->plugin));
+            $v->setDescription("enable/disable vanish");
+            $v->setPermission("pmessentials.vanish");
+            $v->setAliases(["v", "invis"]);
+            $v->setUsage("/vanish [player]");
+            $this->register($v);
         }catch (\Error $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: vanish"));
             $this->error($e);
