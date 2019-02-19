@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerHealEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
@@ -29,7 +30,13 @@ class HealCommand extends Command {
             $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
             return true;
         }
-        $player->setHealth($player->getMaxHealth());
+
+        $ev = new PlayerHealEvent($player, $sender, $player->getMaxHealth());
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        $player->setHealth($ev->getHealth());
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6You have been healed!"));
         }else{

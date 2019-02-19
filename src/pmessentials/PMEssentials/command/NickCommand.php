@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerNickChangeEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
@@ -51,12 +52,18 @@ class NickCommand extends Command {
             $sender->sendMessage(TextFormat::colorize("&4You're not allowed to set custom nicknames"));
             return true;
         }
-        $player->setDisplayName($str.TextFormat::RESET);
+
+        $ev = new PlayerNickChangeEvent($player, $sender, $args[0], $str);
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        $player->setDisplayName($ev->getCheckedNick().TextFormat::RESET);
         if($player === $sender){
-            $sender->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$str."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$ev->getCheckedNick()."&r&6."));
         }else{
-            $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's nick to &r&c".$str."&r&6."));
-            $player->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$str."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's nick to &r&c".$ev->getCheckedNick()."&r&6."));
+            $player->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$ev->getCheckedNick()."&r&6."));
         }
         return true;
     }

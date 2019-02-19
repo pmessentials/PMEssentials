@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerFeedEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
@@ -30,8 +31,12 @@ class FeedCommand extends Command {
             $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
             return true;
         }
-
-        $player->setFood($player->getMaxFood());
+        $ev = new PlayerFeedEvent($player, $sender, $player->getMaxFood());
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        $player->setFood($ev->getFood());
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6You have been fed!"));
         }else{
