@@ -18,11 +18,11 @@ class PowertoolModule extends ModuleBase {
 
     public function __construct(Main $plugin){
         parent::__construct($plugin);
-        $this->name = "PowertoolModule";
+        $this->name = self::class;
     }
 
     public function onStart() : void{
-        $this->plugin->listeners["PowertoolListener"] = new PowertoolListener($this->plugin);
+        $this->plugin->listeners["PowertoolListener"] = new PowertoolListener();
     }
 
     public function disablePowertool(Item $item) : item{

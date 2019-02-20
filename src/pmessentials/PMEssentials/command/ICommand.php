@@ -12,7 +12,7 @@ use pocketmine\item\ItemFactory;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class ICommand extends Command {
+class ICommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {

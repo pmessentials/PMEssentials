@@ -6,16 +6,17 @@ namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\Main;
+use pmessentials\PMEssentials\module\VanishModule;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class VanishCommand extends Command {
+class VanishCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        $v = $this->plugin->moduleManager->getModule("VanishModule");
+        $v = $this->plugin->moduleManager->getModule(VanishModule::class);
         if(isset($args[0]) && $sender->hasPermission("pmessentials.vanish.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){

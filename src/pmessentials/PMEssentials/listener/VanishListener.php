@@ -7,6 +7,7 @@ namespace pmessentials\PMEssentials\listener;
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\event\PlayerVanishEvent;
 use pmessentials\PMEssentials\Main;
+use pmessentials\PMEssentials\module\VanishModule;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -17,14 +18,14 @@ class VanishListener extends ListenerBase {
 
     public function onJoin(PlayerJoinEvent $e) : void{
         $p = $e->getPlayer();
-        foreach($this->plugin->moduleManager->getModule("VanishModule")->getVanishedPlayers() as $vanishedPlayer){
+        foreach($this->plugin->moduleManager->getModule(VanishModule::class)->getVanishedPlayers() as $vanishedPlayer){
             $p->hidePlayer($vanishedPlayer);
         }
     }
 
     public function onQuit(PlayerQuitEvent $e) : void{
         $p = $e->getPlayer();
-        $v = $this->plugin->moduleManager->getModule("VanishModule");
+        $v = $this->plugin->moduleManager->getModule(VanishModule::class);
         if($v->isVanished($p)){
             $v->unvanish($p);
         }

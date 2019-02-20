@@ -2,39 +2,46 @@
 A collection of PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
+
+**Warning:** this plugin is being developed for API 4.0.0! If you are not running on 4.0.0 so not all features may work correctly.
+
 ## Commands:
-- [x] /realname
-- [x] /usage
-- [x] /ping
-- [x] /nick
-- [x] /heal
 - [x] /feed  
 - [x] /gamemode *(custom)*
-- [x] /gms
-- [x] /gmc
 - [x] /gma
+- [x] /gmc
+- [x] /gms
 - [x] /gmv
+- [x] /heal
 - [x] /i
-- [x] /size
+- [x] /nick
+- [x] /ping
 - [x] /powertool
+- [x] /realname
+- [x] /size
+- [x] /usage
 - [x] /vanish
 - [ ] /afk
+- [ ] /delhome
+- [ ] /delwarp
+- [ ] /home
+- [ ] /server
+- [ ] /sethome
+- [ ] /setspawn
+- [ ] /setwarp
+- [ ] /spawn
+- [ ] /tp *(custom)*
 - [ ] /tpa
-- [ ] /tpahere
 - [ ] /tpaccept
+- [ ] /tpahere
 - [ ] /tpdeny
 - [ ] /tphere
-- [ ] /tp *(custom)*
 - [ ] /tpo
 - [ ] /tpohere
 - [ ] /warp
-- [ ] /setwarp
-- [ ] /delwarp
-- [ ] /spawn
-- [ ] /setspawn
-- [ ] /server
-- [ ] /home
-- [ ] /sethome
-- [ ] /delhome
 
-or look at a more detailed list [here](https://github.com/pmessentials/PMEssentials/wiki/Commands)
+
+look at a more detailed list [here](https://github.com/pmessentials/PMEssentials/wiki/Commands)
+
+
+**Note:** this pluginis being developed mainly for pocketmine API 4.0.0! It currently supports 3.0.0 as well, but some features might not work correctly on that version. I am not going to doi anything to support 3.0.0 as when 4.0.0 comes out, this plugin will already be up to date.

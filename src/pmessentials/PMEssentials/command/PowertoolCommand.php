@@ -6,17 +6,18 @@ namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\Main;
+use pmessentials\PMEssentials\module\PowertoolModule;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class PowertoolCommand extends Command {
+class PowertoolCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $item = $sender->getInventory()->getItemInHand();
-        $pt = $this->plugin->moduleManager->getModule("PowertoolModule");
+        $pt = $this->plugin->moduleManager->getModule(PowertoolModule::class);
 
         if(!isset($args[0]) && $pt->isPowertool($item)){
             $disabledItem = $pt->disablePowertool($item);

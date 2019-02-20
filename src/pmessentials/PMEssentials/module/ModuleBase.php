@@ -18,7 +18,7 @@ abstract class ModuleBase{
     public function __construct(Main $plugin){
         $this->plugin = $plugin;
         $this->api = API::getAPI();
-        $this->name = "ModuleBase";
+        $this->name = self::class;
         $this->onStart();
     }
 

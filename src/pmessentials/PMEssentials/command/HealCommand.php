@@ -12,7 +12,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class HealCommand extends Command {
+class HealCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {

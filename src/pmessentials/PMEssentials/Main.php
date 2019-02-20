@@ -28,11 +28,14 @@ class Main extends PluginBase{
 
     public function onLoad(){
         self::$instance = $this;
+        $this->api = API::getAPI();
+        $this->moduleManager = new ModuleManager($this);
     }
 
     public function onEnable() : void{
-	    $this->api = API::getAPI();
-	    $this->moduleManager = new ModuleManager($this);
+        if(!$this->getServer()->getPluginManager()->isCompatibleApi("4.0.0")){
+            $this->getLogger()->warning(TextFormat::colorize("&cWarning: &ethis plugin is being developed for API 4.0.0! You are not running on 4.0.0 so not all features may work correctly."));
+        }
 	    $this->moduleManager->addModule(new PowertoolModule($this));
         $this->moduleManager->addModule(new VanishModule($this));
 

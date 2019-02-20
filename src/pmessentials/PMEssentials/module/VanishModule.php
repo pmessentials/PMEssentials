@@ -20,11 +20,11 @@ class VanishModule extends ModuleBase {
 
     public function __construct(Main $plugin){
         parent::__construct($plugin);
-        $this->name = "VanishModule";
+        $this->name = self::class;
     }
 
     public function onStart() : void{
-        $this->plugin->listeners["VanishListener"] = new VanishListener($this->plugin);
+        $this->plugin->listeners["VanishListener"] = new VanishListener();
     }
 
     public function getVanishedPlayers() : array {

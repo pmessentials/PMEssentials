@@ -14,9 +14,9 @@ abstract class ListenerBase implements Listener {
     protected $plugin;
     protected $api;
 
-    public function __construct(Main $plugin){
-        $this->plugin = $plugin;
+    public function __construct(){
         $this->api = API::getAPI();
+        $this->plugin = $this->api->getPlugin();
         $this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
     }
 

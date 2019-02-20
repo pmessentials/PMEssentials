@@ -12,7 +12,7 @@ use pocketmine\GameMode;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class GameModeCommand extends Command {
+class GameModeCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {

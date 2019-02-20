@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerFlyEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
@@ -12,7 +13,7 @@ use pocketmine\command\utils\CommandException;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class FlyCommand extends Command {
+class FlyCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
@@ -40,13 +41,19 @@ class FlyCommand extends Command {
             $sender->sendMessage(TextFormat::colorize("&4Can't toggle flight in spectator mode!"));
             return true;
         }
-        if($player->getAllowFlight()){
+
+        $ev = new PlayerFlyEvent($player, $sender, !$player->getAllowFlight());
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        if($ev->getFlight()){
+            $str = "on";
+            $player->setAllowFlight(true);
+        }else{
             $str = "off";
             $player->setAllowFlight(false);
             $player->setFlying(false);
-        }else{
-            $str = "on";
-            $player->setAllowFlight(true);
         }
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6Turned &c".$str."&6 flight mode."));

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerSizeChangeEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class SizeCommand extends Command {
+class SizeCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
@@ -40,12 +41,17 @@ class SizeCommand extends Command {
             return true;
         }
 
-        $player->setScale($size);
+        $ev = new PlayerSizeChangeEvent($player, $sender, $size);
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        $player->setScale($ev->getSize());
         if($player === $sender){
-            $sender->sendMessage(TextFormat::colorize("&6You have been resized to &c".$size."&6."));
+            $sender->sendMessage(TextFormat::colorize("&6You have been resized to &c".$ev->getSize()."&6."));
         }else{
-            $sender->sendMessage(TextFormat::colorize("&6Resized &c".$player->getName()."&r&6 to &c".$size."&6."));
-            $player->sendMessage(TextFormat::colorize("&6You have been resized to &c".$size."&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Resized &c".$player->getName()."&r&6 to &c".$ev->getSize()."&6."));
+            $player->sendMessage(TextFormat::colorize("&6You have been resized to &c".$ev->getSize()."&6."));
         }
         return true;
     }
