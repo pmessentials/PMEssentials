@@ -16,8 +16,6 @@ use pocketmine\utils\TextFormat;
 
 class VanishModule extends ModuleBase {
 
-    private $vanished = [];
-
     public function __construct(Main $plugin){
         parent::__construct($plugin);
         $this->name = self::class;
@@ -28,39 +26,27 @@ class VanishModule extends ModuleBase {
     }
 
     public function getVanishedPlayers() : array {
-        return $this->vanished;
+        $array = [];
+        foreach($this->plugin->getUserMap()->getUsers() as $user){
+            if($user->isVanished()){
+                $array[$user->getPlayer()->getName()] = $user;
+            }
+        }
+        return $array;
     }
 
     public function getVanishedPlayer(string $name) : Player {
-        return $this->vanished[$name] ?? null;
+        $array = $this->getVanishedPlayers();
+        return $array[$name] ?? null;
+
     }
 
     public function setVanished(Player $player, bool $bool = true) : void{
-        $ev = new PlayerVanishEvent($player, $bool);
-        $ev->call();
-        if($ev->isCancelled()) {
-            return;
-        }elseif($ev->getBool()){
-            $this->vanished[$player->getName()] = $player;
-            $this->plugin->getServer()->removeOnlinePlayer($player);
-            foreach($this->plugin->getServer()->getLoggedInPlayers() as $target){
-                if(!$target->hasPermission("pmessentials.vanish.see")){
-                    $target->hidePlayer($player);
-                }
-            }
-        }else{
-            unset($this->vanished[$player->getName()]);
-            $this->plugin->getServer()->addOnlinePlayer($player);
-            foreach($this->plugin->getServer()->getLoggedInPlayers() as $target){
-                if(!$target->canSee($player)){
-                    $target->showPlayer($player);
-                }
-            }
-        }
+        $this->plugin->getUserMap()->fromPlayer($player)->setVanished($bool);
     }
 
     public function isVanished(Player $player) : bool{
-        return isset($this->vanished[$player->getName()]);
+        return $this->plugin->getUserMap()->fromPlayer($player)->isVanished();
     }
 
     public function vanish(Player $player) : void{

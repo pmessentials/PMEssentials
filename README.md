@@ -3,7 +3,7 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
 
-**Note:** this pluginis being developed mainly for pocketmine API 4.0.0! It currently supports 3.0.0 as well, but some features might not work correctly on that version. I am not going to doi anything to support 3.0.0 as when 4.0.0 comes out, this plugin will already be up to date.
+**Warning:** this plugin is being developed for API 4.0.0! If you are not running on 4.0.0 so not all features may work correctly.
 
 ## Commands:
 - [x] /feed  
@@ -19,6 +19,7 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [x] /powertool
 - [x] /realname
 - [x] /size
+- [x] /speed
 - [x] /usage
 - [x] /vanish
 - [ ] /afk
@@ -42,3 +43,6 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 
 
 look at a more detailed list [here](https://github.com/pmessentials/PMEssentials/wiki/Commands)
+
+
+**Note:** this pluginis being developed mainly for pocketmine API 4.0.0! It currently supports 3.0.0 as well, but some features might not work correctly on that version. I am not going to doi anything to support 3.0.0 as when 4.0.0 comes out, this plugin will already be up to date.

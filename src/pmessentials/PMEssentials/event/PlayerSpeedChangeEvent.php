@@ -8,14 +8,14 @@ use pocketmine\event\player\PlayerEvent;
 use pocketmine\event\plugin\PluginEvent;
 use pocketmine\Player;
 
-class PlayerSizeChangeEvent extends PlayerCommandEvent implements Cancellable{
+class PlayerSpeedChangeEvent extends PlayerCommandEvent implements Cancellable{
 
-    protected $size;
+    protected $speed;
     protected $canceled = false;
 
-    public function __construct(Player $player, CommandSender $sender, float $size){
+    public function __construct(Player $player, CommandSender $sender, float $speed){
         parent::__construct($player, $sender);
-        $this->size = $size;
+        $this->speed = $speed;
     }
 
     public function isCancelled(): bool
@@ -28,11 +28,11 @@ class PlayerSizeChangeEvent extends PlayerCommandEvent implements Cancellable{
         $this->canceled = $value;
     }
 
-    public function getSize() : float {
-        return $this->size;
+    public function getSpeed() : float {
+        return $this->speed;
     }
 
-    public function setFlight(float $size) : void{
-        $this->size = $size;
+    public function setSpeed(float $speed) : void{
+        $this->speed = $speed;
     }
 }

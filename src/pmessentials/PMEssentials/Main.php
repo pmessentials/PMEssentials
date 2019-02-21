@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\API;
-use pmessentials\PMEssentials\listener\PowertoolListener;
-use pmessentials\PMEssentials\listener\VanishListener;
+use pmessentials\PMEssentials\listener\PlayerEventListener;
 use pmessentials\PMEssentials\module\ModuleManager;
 use pmessentials\PMEssentials\module\PowertoolModule;
 use pmessentials\PMEssentials\module\VanishModule;
+use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
@@ -24,12 +24,15 @@ class Main extends PluginBase{
 
     public $commandMap;
 
+    public $userMap;
+
     private static $instance;
 
     public function onLoad(){
         self::$instance = $this;
         $this->api = API::getAPI();
         $this->moduleManager = new ModuleManager($this);
+        $this->userMap = new UserMap();
     }
 
     public function onEnable() : void{
@@ -38,8 +41,9 @@ class Main extends PluginBase{
         }
 	    $this->moduleManager->addModule(new PowertoolModule($this));
         $this->moduleManager->addModule(new VanishModule($this));
-
 	    $this->commandMap = EssentialsCommandMap::getInstance();
+
+	    $this->listeners[PlayerEventListener::class] = new PlayerEventListener();
 	}
 
 	public function onDisable() : void{
@@ -51,5 +55,9 @@ class Main extends PluginBase{
 
     public function getModuleManager() : ModuleManager{
         return $this->moduleManager;
+    }
+
+    public function getUserMap() : UserMap{
+        return $this->userMap;
     }
 }

@@ -15,6 +15,7 @@ use pmessentials\PMEssentials\command\PowertoolCommand;
 use pmessentials\PMEssentials\command\RealNameCommand;
 use pmessentials\PMEssentials\command\SimpleCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
+use pmessentials\PMEssentials\command\SpeedCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
 use pmessentials\PMEssentials\listener\PowertoolListener;
@@ -200,6 +201,19 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Error $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: vanish"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("speed", $this->plugin);
+            $v->setExecutor(new SpeedCommand());
+            $v->setDescription("change your speed");
+            $v->setPermission("pmessentials.speed");
+            $v->setAliases(["velocity"]);
+            $v->setUsage("/speed <speed> [player]");
+            $this->register($v);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: speed"));
             $this->error($e);
         }
     }

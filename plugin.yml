@@ -103,3 +103,10 @@ permissions:
      pmessentials.vanish.see:
       default: op
       description: "allows you to see vanished players"
+   pmessentials.speed:
+    default: op
+    description: "change your movement speed"
+    children:
+     pmessentials.speed.other:
+      default: op
+      description: "change someone else's movement speed"
