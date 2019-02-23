@@ -8,11 +8,16 @@ use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
-use pocketmine\GameMode;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
 class GameModeCommand extends SimpleExecutor {
+
+    public const SURVIVAL = 0;
+    public const CREATIVE = 1;
+    public const ADVENTURE = 2;
+    public const SPECTATOR = 3;
+    public const VIEW = self::SPECTATOR;
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
@@ -51,30 +56,19 @@ class GameModeCommand extends SimpleExecutor {
                     $target = $args[1];
                 }
                 try{
-                    $gm = GameMode::fromString($args[0]);
-                }catch (\InvalidArgumentException $e){
-                    $gm = -1;
+                    $gm = self::fromString($args[0]);
+                }catch (\Exception $e){
+                    $sender->sendMessage(TextFormat::colorize("&4Please enter a valid gamemode!"));
+                    return true;
                 }
                 break;
         }
 
-        switch ($gm){
-            case 0:
-                $gmstr = "survival";
-                break;
-            case 1:
-                $gmstr = "creative";
-                break;
-            case 2:
-                $gmstr = "adventure";
-                break;
-            case 3:
-                $gmstr = "spectator";
-                break;
-            default:
-            $sender->sendMessage(TextFormat::colorize("&4You have provided an invalid gamemode!"));
+        try{
+            $gmstr = self::toString($gm);
+        }catch (\Exception $e){
+            $sender->sendMessage(TextFormat::colorize("&4Please enter valid gamemode!"));
             return true;
-            break;
         }
 
         if(!$sender->hasPermission("pmessentials.gamemode.".$gmstr)){
@@ -106,5 +100,49 @@ class GameModeCommand extends SimpleExecutor {
             $player->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".$gmstr."&r&6."));
         }
         return true;
+    }
+
+    //taken from 4.0.0 gamemode class to be compatible with 3.0.0
+    public static function toString(int $mode) : string{
+        switch($mode){
+            case self::SURVIVAL:
+                return "Survival";
+            case self::CREATIVE:
+                return "Creative";
+            case self::ADVENTURE:
+                return "Adventure";
+            case self::SPECTATOR:
+                return "Spectator";
+            default:
+                throw new \InvalidArgumentException("Invalid gamemode $mode");
+        }
+    }
+
+    //taken from 4.0.0 gamemode class to be compatible with 3.0.0
+    public static function fromString(string $str) : int{
+        switch(strtolower(trim($str))){
+            case (string) self::SURVIVAL:
+            case "survival":
+            case "s":
+                return self::SURVIVAL;
+
+            case (string) self::CREATIVE:
+            case "creative":
+            case "c":
+                return self::CREATIVE;
+
+            case (string) self::ADVENTURE:
+            case "adventure":
+            case "a":
+                return self::ADVENTURE;
+
+            case (string) self::SPECTATOR:
+            case "spectator":
+            case "view":
+            case "v":
+                return self::SPECTATOR;
+        }
+
+        throw new \InvalidArgumentException("Unknown gamemode string \"$str\"");
     }
 }

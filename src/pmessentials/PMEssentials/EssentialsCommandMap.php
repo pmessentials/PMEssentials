@@ -11,6 +11,7 @@ use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
 use pmessentials\PMEssentials\command\PingCommand;
+use pmessentials\PMEssentials\command\PosCommand;
 use pmessentials\PMEssentials\command\PowertoolCommand;
 use pmessentials\PMEssentials\command\RealNameCommand;
 use pmessentials\PMEssentials\command\SimpleCommand;
@@ -214,6 +215,19 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Error $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: speed"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("xyz", $this->plugin);
+            $v->setExecutor(new PosCommand());
+            $v->setDescription("show your coordinates");
+            $v->setPermission("pmessentials.xyz");
+            $v->setAliases(["getpos", "position"]);
+            $v->setUsage("/xyz [player]");
+            $this->register($v);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: xyz"));
             $this->error($e);
         }
     }

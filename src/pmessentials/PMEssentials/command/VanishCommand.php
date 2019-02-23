@@ -6,7 +6,6 @@ namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\Main;
-use pmessentials\PMEssentials\module\VanishModule;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -16,18 +15,18 @@ class VanishCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        $v = $this->plugin->moduleManager->getModule(VanishModule::class);
         if(isset($args[0]) && $sender->hasPermission("pmessentials.vanish.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
-                if($v->getVanishedPlayer($args[0]) !== null){
-                    $player = $v->getVanishedPlayer($args[0]);
+                if($this->api->getVanishedPlayer($args[0]) !== null){
+                    $player = $this->api->getVanishedPlayer($args[0]);
                 }else{
                     $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
                     return true;
                 }
+            }else{
+                $player = $match[0];
             }
-            $player = $match[0];
         }else{
             $player = $sender;
         }
@@ -37,8 +36,8 @@ class VanishCommand extends SimpleExecutor {
             return true;
         }
 
-        if(!$v->isVanished($player)){
-            $v->vanish($player);
+        if(!$this->api->isVanished($player)){
+            $this->api->vanish($player);
             if($player === $sender){
                 $sender->sendMessage(TextFormat::colorize("&6You have vanished!"));
             }else{
@@ -46,7 +45,7 @@ class VanishCommand extends SimpleExecutor {
                 $player->sendMessage(TextFormat::colorize("&6You have vanished!"));
             }
         }else{
-            $v->unvanish($player);
+            $this->api->unvanish($player);
             if($player === $sender){
                 $sender->sendMessage(TextFormat::colorize("&6You have reappeared!"));
             }else{

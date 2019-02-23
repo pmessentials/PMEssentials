@@ -3,8 +3,6 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
 
-**Note:** this pluginis being developed mainly for pocketmine API 4.0.0! It currently supports 3.0.0 as well, but some features might not work correctly on that version. I am not going to doi anything to support 3.0.0 as when 4.0.0 comes out, this plugin will already be up to date.
-
 ## Commands:
 - [x] /feed  
 - [x] /gamemode *(custom)*
@@ -22,6 +20,7 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [x] /speed
 - [x] /usage
 - [x] /vanish
+- [x] /xyz
 - [ ] /afk
 - [ ] /delhome
 - [ ] /delwarp

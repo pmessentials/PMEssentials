@@ -15,6 +15,7 @@ class User{
 
     protected $player;
     protected $map;
+    public $data = []; //data for any plugin to access
 
     protected $vanish = false;
 
