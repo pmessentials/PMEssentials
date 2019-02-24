@@ -2,36 +2,28 @@
 
 namespace pmessentials\PMEssentials\event;
 
+use pocketmine\command\CommandSender;
 use pocketmine\event\Cancellable;
 use pocketmine\event\player\PlayerEvent;
 use pocketmine\event\plugin\PluginEvent;
 use pocketmine\Player;
 
-class PlayerVanishEvent extends PlayerEvent implements Cancellable{
+class PlayerVanishEvent extends PlayerCommandEvent implements Cancellable{
 
-    protected $bool;
+    protected $vanish;
     protected $canceled = false;
 
-    public function __construct(Player $player, bool $bool){
+    public function __construct(Player $player, CommandSender $sender, bool $vanish){
+        parent::__construct($player, $sender);
         $this->player = $player;
-        $this->bool = $bool;
+        $this->vanish = $vanish;
     }
 
-    public function isCancelled(): bool
-    {
-        return $this->canceled;
+    public function getVanish() : bool{
+        return $this->vanish;
     }
 
-    public function setCancelled(bool $value = true) : void
-    {
-        $this->canceled = $value;
-    }
-
-    public function getBool() : bool{
-        return $this->bool;
-    }
-
-    public function setBool(bool $bool) : void{
-        $this->bool = $bool;
+    public function setVanish(bool $vanish) : void{
+        $this->vanish = $vanish;
     }
 }

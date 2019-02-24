@@ -119,4 +119,13 @@ class API{
         $nbt = $item->getNamedTag();
         return $nbt->getString("powertool");
     }
+
+    # godmode API
+    public function setGodmode(Player $player, bool $godmode = true){
+        $this->plugin->getUserMap()->fromPlayer($player)->setGodmode($godmode);
+    }
+
+    public function isGodmode(Player $player) : bool{
+        return $this->plugin->getUserMap()->fromPlayer($player)->isGodmode();
+    }
 }

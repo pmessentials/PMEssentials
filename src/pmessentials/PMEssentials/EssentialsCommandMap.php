@@ -7,6 +7,7 @@ namespace pmessentials\PMEssentials;
 use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\FlyCommand;
 use pmessentials\PMEssentials\command\GameModeCommand;
+use pmessentials\PMEssentials\command\GodCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
@@ -228,6 +229,19 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Error $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: xyz"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("godmode", $this->plugin);
+            $v->setExecutor(new GodCommand());
+            $v->setDescription("toggle godmode");
+            $v->setPermission("pmessentials.godmode");
+            $v->setAliases(["god"]);
+            $v->setUsage("/godmode [player]");
+            $this->register($v);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: godmode"));
             $this->error($e);
         }
     }

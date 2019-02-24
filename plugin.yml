@@ -120,3 +120,10 @@ permissions:
      pmessentials.xyz.other:
       default: op
       description: "shows another player's coordinates"
+   pmessentials.godmode:
+    default: op
+    description: "toggle godmode"
+    children:
+     pmessentials.godmode.other:
+      default: op
+      description: "toggle godmode for someone else"

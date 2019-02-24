@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\event\PlayerVanishEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
@@ -36,7 +37,12 @@ class VanishCommand extends SimpleExecutor {
             return true;
         }
 
-        if(!$this->api->isVanished($player)){
+        $ev = new PlayerVanishEvent($player, $sender, !$this->api->isVanished($player));
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+        if($ev->getVanish()){
             $this->api->vanish($player);
             if($player === $sender){
                 $sender->sendMessage(TextFormat::colorize("&6You have vanished!"));

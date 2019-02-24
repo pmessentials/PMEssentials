@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials;
 
+use pmessentials\PMEssentials\event\PlayerGodmodeEvent;
 use pmessentials\PMEssentials\event\PlayerVanishEvent;
 use pmessentials\PMEssentials\Main;
 use pocketmine\Player;
@@ -18,6 +19,7 @@ class User{
     public $data = []; //data for any plugin to access
 
     protected $vanish = false;
+    protected $godmode = false;
 
     public function getUserMap() : UserMap{
         return $this->map;
@@ -50,11 +52,7 @@ class User{
     }
 
     public function setVanished(bool $bool = true) : void{
-        $ev = new PlayerVanishEvent($this->getPlayer(), $bool);
-        $ev->call();
-        if($ev->isCancelled()) {
-            return;
-        }elseif($ev->getBool()){
+        if($bool){
             $this->vanish = true;
             $this->plugin->getServer()->removeOnlinePlayer($this->getPlayer());
             foreach($this->plugin->getServer()->getLoggedInPlayers() as $target){
@@ -77,11 +75,11 @@ class User{
         return $this->vanish;
     }
 
-    public function vanish() : void{
-        $this->setVanished(true);
+    public function setGodmode(bool $bool = true) : void{
+        $this->godmode = $bool;
     }
 
-    public function unvanish() : void{
-        $this->setVanished(false);
+    public function isGodmode() : bool{
+        return $this->godmode;
     }
 }

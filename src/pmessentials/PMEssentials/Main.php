@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\API;
+use pmessentials\PMEssentials\listener\GodmodeListener;
 use pmessentials\PMEssentials\listener\PlayerEventListener;
 use pmessentials\PMEssentials\listener\PowertoolListener;
 use pmessentials\PMEssentials\listener\VanishListener;
@@ -33,11 +34,13 @@ class Main extends PluginBase{
         $this->api = API::getAPI();
         $this->moduleManager = new ModuleManager($this);
         $this->userMap = new UserMap();
+        $this->getConfig();
     }
 
     public function onEnable() : void{
-        $this->listeners["VanishListener"] = new VanishListener();
-        $this->listeners["PowertoolListener"] = new PowertoolListener();
+        $this->listeners[VanishListener::class] = new VanishListener();
+        $this->listeners[PowertoolListener::class] = new PowertoolListener();
+        $this->listeners[GodmodeListener::class] = new GodmodeListener();
 	    $this->commandMap = EssentialsCommandMap::getInstance();
 
 	    $this->listeners[PlayerEventListener::class] = new PlayerEventListener();
