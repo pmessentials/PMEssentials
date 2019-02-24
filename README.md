@@ -10,6 +10,7 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [x] /gmc
 - [x] /gms
 - [x] /gmv
+- [x] /god
 - [x] /heal
 - [x] /i
 - [x] /nick
