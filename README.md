@@ -14,10 +14,12 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [x] /heal
 - [x] /i
 - [x] /nick
+- [x] /nuke
 - [x] /ping
 - [x] /powertool
 - [x] /realname
 - [x] /size
+- [x] /smite
 - [x] /speed
 - [x] /usage
 - [x] /vanish

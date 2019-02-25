@@ -127,3 +127,12 @@ permissions:
      pmessentials.godmode.other:
       default: op
       description: "toggle godmode for someone else"
+   pmessentials.nuke:
+    default: op
+    description: "nuke yourself"
+    children:
+     pmessentials.nuke.other:
+      description: "nuke someone"
+   pmessentials.smite:
+    default: op
+    description: "strike lightning"

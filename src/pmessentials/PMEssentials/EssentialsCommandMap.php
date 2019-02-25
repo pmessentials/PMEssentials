@@ -11,6 +11,7 @@ use pmessentials\PMEssentials\command\GodCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\NickCommand;
+use pmessentials\PMEssentials\command\NukeCommand;
 use pmessentials\PMEssentials\command\PingCommand;
 use pmessentials\PMEssentials\command\PosCommand;
 use pmessentials\PMEssentials\command\PowertoolCommand;
@@ -18,6 +19,7 @@ use pmessentials\PMEssentials\command\RealNameCommand;
 use pmessentials\PMEssentials\command\SimpleCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\SpeedCommand;
+use pmessentials\PMEssentials\command\ThorCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
 use pmessentials\PMEssentials\listener\PowertoolListener;
@@ -26,6 +28,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandMap;
 use pocketmine\command\PluginCommand;
 use pocketmine\command\SimpleCommandMap;
+use pocketmine\entity\Entity;
 use pocketmine\utils\TextFormat;
 
 class EssentialsCommandMap {
@@ -242,6 +245,31 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Error $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: godmode"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("nuke", $this->plugin);
+            $v->setExecutor(new NukeCommand());
+            $v->setDescription("nuke someone");
+            $v->setPermission("pmessentials.nuke");
+            $v->setUsage("/nuke [player]");
+            $this->register($v);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: nuke"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("smite", $this->plugin);
+            $v->setExecutor(new ThorCommand());
+            $v->setDescription("Thou hast been smitten");
+            $v->setPermission("pmessentials.smite");
+            $v->setAliases(["thor", "lightning"]);
+            $v->setUsage("/smite");
+            $this->register($v);
+        }catch (\Error $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
             $this->error($e);
         }
     }
