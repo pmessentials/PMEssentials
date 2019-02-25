@@ -13,7 +13,7 @@ permissions:
   children:
    pmessentials.nick:
     default: op
-    description: "change your nickname"
+    description: "change a player's nickname"
     children:
      pmessentials.nick.color:
       default: true
@@ -21,39 +21,52 @@ permissions:
      pmessentials.nick.custom:
       default: true
       description: "set a custom nickname"
+     pmessentials.nick.self:
+      default: op
+      description: "change your nickname"
+      pmessentials.heal:
      pmessentials.nick.other:
       default: op
       description: "change someone else's nickname"
    pmessentials.heal:
     default: op
-    description: "heal yourself"
+    description: "heal a player"
     children:
+     pmessentials.heal.self:
+      default: op
+      description: "heal yourself"
      pmessentials.heal.other:
       default: op
       description: "heal someone else"
    pmessentials.feed:
     default: op
-    description: "feed yourself"
+    description: "feed a player"
     children:
+     pmessentials.feed.self:
+      default: op
+      description: "feed yourself"
      pmessentials.feed.other:
       default: op
       description: "feed someone else"
    pmessentials.gamemode:
     default: op
-    description: "change your gamemode"
+    description: "change gamemode"
     children:
      pmessentials.gamemode.survival:
-      default: true
+      default: op
       description: "change your gamemode to survival"
      pmessentials.gamemode.creative:
-      default: true
+      default: op
       description: "change your gamemode to creative"
      pmessentials.gamemode.adventure:
-      default: true
+      default: op
       description: "change your gamemode to adventure"
      pmessentials.gamemode.spectator:
-      default: true
+      default: op
       description: "change your gamemode to spectator"
+     pmessentials.gamemode.self:
+      default: op
+      description: "change your gamemode"
      pmessentials.gamemode.other:
       default: op
       description: "change someone else's gamemode"
@@ -62,8 +75,11 @@ permissions:
     description: "gives you an item"
    pmessentials.size:
     default: op
-    description: "change your size"
+    description: "change size"
     children:
+     pmessentials.size.self:
+      default: op
+      description: "change your size"
      pmessentials.size.other:
       default: op
       description: "change someone's size"
@@ -88,8 +104,11 @@ permissions:
     description: "Pong!"
    pmessentials.fly:
     default: op
-    description: "allows toggling flight mode for yourself"
+    description: "allows toggling flight mode"
     children:
+     pmessentials.fly.self:
+      default: op
+      description: "allows toggling flight mode for yourself"
      pmessentials.fly.other:
       default: op
       description: "allows toggling flight mode for others"
@@ -97,6 +116,9 @@ permissions:
     default: op
     description: "go invisible"
     children:
+     pmessentials.vanish.self:
+      default: op
+      description: "make yourself go invisible"
      pmessentials.vanish.other:
       default: op
       description: "make someone else go invisible"
@@ -105,18 +127,24 @@ permissions:
       description: "allows you to see vanished players"
    pmessentials.speed:
     default: op
-    description: "change your movement speed"
+    description: "change movement speed"
     children:
+     pmessentials.speed.self:
+      default: op
+      description: "change your movement speed"
      pmessentials.speed.other:
       default: op
       description: "change someone else's movement speed"
    pmessentials.xyz:
     default: true
-    description: "show your coordinates"
+    description: "shows coordinates"
     children:
      pmessentials.xyz.world:
       default: op
       description: "shows the world you're in"
+     pmessentials.xyz.self:
+      default: op
+      description: "shows your coordinates"
      pmessentials.xyz.other:
       default: op
       description: "shows another player's coordinates"
@@ -124,15 +152,24 @@ permissions:
     default: op
     description: "toggle godmode"
     children:
+     pmessentials.godmode.self:
+      default: op
+      description: "toggle godmode for yourself"
      pmessentials.godmode.other:
       default: op
       description: "toggle godmode for someone else"
    pmessentials.nuke:
     default: op
-    description: "nuke yourself"
+    description: "nuke someone"
     children:
+     pmessentials.nuke.self:
+      description: "nuke yourself"
      pmessentials.nuke.other:
-      description: "nuke someone"
+      description: "nuke someone else"
    pmessentials.smite:
     default: op
     description: "strike lightning"
+   pmessentials.tree:
+    default: op
+    description: "spawn a tree"
+    children:

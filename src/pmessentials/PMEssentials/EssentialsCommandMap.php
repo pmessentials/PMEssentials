@@ -20,6 +20,7 @@ use pmessentials\PMEssentials\command\SimpleCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\SpeedCommand;
 use pmessentials\PMEssentials\command\ThorCommand;
+use pmessentials\PMEssentials\command\TreeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
 use pmessentials\PMEssentials\listener\PowertoolListener;
@@ -59,11 +60,11 @@ class EssentialsCommandMap {
             $nick = new SimpleCommand("nick", $this->plugin);
             $nick->setExecutor(new NickCommand());
             $nick->setDescription("change your nickname");
-            $nick->setPermission("pmessentials.nick");
+            $nick->setPermission("pmessentials.nick.self");
             $nick->setAliases(["name", "nickname"]);
             $nick->setUsage("/nick [nick] [player]");
             $this->register($nick);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: nick"));
             $this->error($e);
         }
@@ -73,10 +74,10 @@ class EssentialsCommandMap {
             $heal = new SimpleCommand("heal", $this->plugin);
             $heal->setExecutor(new HealCommand());
             $heal->setDescription("heal a player");
-            $heal->setPermission("pmessentials.heal");
+            $heal->setPermission("pmessentials.heal.self");
             $heal->setUsage("/heal [player]");
             $this->register($heal);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: heal"));
             $this->error($e);
         }
@@ -85,10 +86,10 @@ class EssentialsCommandMap {
             $feed = new SimpleCommand("feed", $this->plugin);
             $feed->setExecutor(new FeedCommand());
             $feed->setDescription("feed a player");
-            $feed->setPermission("pmessentials.feed");
+            $feed->setPermission("pmessentials.feed.self");
             $feed->setUsage("/feed [player]");
             $this->register($feed);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: feed"));
             $this->error($e);
         }
@@ -100,11 +101,11 @@ class EssentialsCommandMap {
             $gm = new SimpleCommand("gamemode", $this->plugin);
             $gm->setExecutor(new GameModeCommand());
             $gm->setDescription("change your gamemode");
-            $gm->setPermission("pmessentials.gamemode");
+            $gm->setPermission("pmessentials.gamemode.self");
             $gm->setAliases(["gm", "gms", "gmc", "gma", "gmspc", "gmv"]);
             $gm->setUsage("/gamemode <mode> [player]");
             $this->register($gm);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: gamemode"));
             $this->error($e);
         }
@@ -116,7 +117,7 @@ class EssentialsCommandMap {
             $i->setPermission("pmessentials.i");
             $i->setUsage("/i <item>:[meta] [count]");
             $this->register($i);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: i"));
             $this->error($e);
         }
@@ -125,11 +126,11 @@ class EssentialsCommandMap {
             $size = new SimpleCommand("size", $this->plugin);
             $size->setExecutor(new SizeCommand());
             $size->setDescription("resize a player");
-            $size->setPermission("pmessentials.size");
+            $size->setPermission("pmessentials.size.self");
             $size->setAliases(["scale"]);
             $size->setUsage("/size [size] [player]");
             $this->register($size);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: size"));
             $this->error($e);
         }
@@ -141,7 +142,7 @@ class EssentialsCommandMap {
             $realname->setPermission("pmessentials.realname");
             $realname->setUsage("/realname <nick>");
             $this->register($realname);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: realname"));
             $this->error($e);
         }
@@ -154,7 +155,7 @@ class EssentialsCommandMap {
             $usage->setAliases(["howtouse"]);
             $usage->setUsage("/usage <command>");
             $this->register($usage);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: usage"));
             $this->error($e);
         }
@@ -167,7 +168,7 @@ class EssentialsCommandMap {
             $pt->setAliases(["pt"]);
             $pt->setUsage("/powertool <command>");
             $this->register($pt);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: powertool"));
             $this->error($e);
         }
@@ -179,7 +180,7 @@ class EssentialsCommandMap {
             $ping->setPermission("pmessentials.ping");
             $ping->setUsage("/ping");
             $this->register($ping);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: ping"));
             $this->error($e);
         }
@@ -188,10 +189,10 @@ class EssentialsCommandMap {
             $fly = new SimpleCommand("fly", $this->plugin);
             $fly->setExecutor(new FlyCommand());
             $fly->setDescription("enable/disable flight");
-            $fly->setPermission("pmessentials.fly");
+            $fly->setPermission("pmessentials.fly.self");
             $fly->setUsage("/fly [player]");
             $this->register($fly);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: fly"));
             $this->error($e);
         }
@@ -200,11 +201,11 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("vanish", $this->plugin);
             $v->setExecutor(new VanishCommand());
             $v->setDescription("enable/disable vanish");
-            $v->setPermission("pmessentials.vanish");
+            $v->setPermission("pmessentials.vanish.self");
             $v->setAliases(["v", "invis"]);
             $v->setUsage("/vanish [player]");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: vanish"));
             $this->error($e);
         }
@@ -213,11 +214,11 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("speed", $this->plugin);
             $v->setExecutor(new SpeedCommand());
             $v->setDescription("change your speed");
-            $v->setPermission("pmessentials.speed");
+            $v->setPermission("pmessentials.speed.self");
             $v->setAliases(["velocity"]);
             $v->setUsage("/speed <speed> [player]");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: speed"));
             $this->error($e);
         }
@@ -226,11 +227,11 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("xyz", $this->plugin);
             $v->setExecutor(new PosCommand());
             $v->setDescription("show your coordinates");
-            $v->setPermission("pmessentials.xyz");
+            $v->setPermission("pmessentials.xyz.self");
             $v->setAliases(["getpos", "position"]);
             $v->setUsage("/xyz [player]");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: xyz"));
             $this->error($e);
         }
@@ -239,11 +240,11 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("godmode", $this->plugin);
             $v->setExecutor(new GodCommand());
             $v->setDescription("toggle godmode");
-            $v->setPermission("pmessentials.godmode");
+            $v->setPermission("pmessentials.godmode.self");
             $v->setAliases(["god"]);
             $v->setUsage("/godmode [player]");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: godmode"));
             $this->error($e);
         }
@@ -252,10 +253,10 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("nuke", $this->plugin);
             $v->setExecutor(new NukeCommand());
             $v->setDescription("nuke someone");
-            $v->setPermission("pmessentials.nuke");
+            $v->setPermission("pmessentials.nuke.self");
             $v->setUsage("/nuke [player]");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: nuke"));
             $this->error($e);
         }
@@ -268,7 +269,19 @@ class EssentialsCommandMap {
             $v->setAliases(["thor", "lightning"]);
             $v->setUsage("/smite");
             $this->register($v);
-        }catch (\Error $e){
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("tree", $this->plugin);
+            $v->setExecutor(new TreeCommand());
+            $v->setDescription("Spawn a tree");
+            $v->setPermission("pmessentials.tree");
+            $v->setUsage("/tree");
+            $this->register($v);
+        }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
             $this->error($e);
         }
@@ -299,7 +312,7 @@ class EssentialsCommandMap {
         return $this->commands;
     }
 
-    private function error(\Error $e) : void{
+    private function error(\Throwable $e) : void{
         $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("&cError ".$e->getCode().": ".$e->getMessage()." on line ".$e->getLine()." in file ".$e->getFile()));
     }
 }
