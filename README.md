@@ -2,8 +2,8 @@
 A collection of PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
-
 ## Commands:
+List of commands:
 - [x] /feed  
 - [x] /gamemode *(custom)*
 - [x] /gma
@@ -43,4 +43,21 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 - [ ] /tpohere
 - [ ] /warp
 
-look at a more detailed list [here](https://github.com/pmessentials/PMEssentials/wiki/Commands)
+## API:
+**PMEssentials** has an API for developers can tweak a lot of features and improve them. You can access the UserMap to get users and externally enable things like godmode or vanish. The plugin also has quite a few events you can use to for instance modify command behaviour.
+
+If you want to get the API instance, all you need to do is this:
+```php
+$api = API::getAPI();
+```
+You can get the main file too, but you probably won't need it.
+
+Now, let's say you're creating a command and you want it to work on vanished platers. You can use these functions:
+```php
+//get ALL vanished players
+$vplayers = $api->getVanishedPlayers();
+
+//get vanished player from name
+$vplayer = $api->getVanishedPlayer("myplayer");
+```
+It's not hard to use the PME API. If you want something changed in the API you can always open an issue with the API request template.
