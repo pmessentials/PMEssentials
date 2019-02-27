@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials;
 
+use pmessentials\PMEssentials\command\BreakCommand;
 use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\FlyCommand;
 use pmessentials\PMEssentials\command\GameModeCommand;
@@ -283,6 +284,18 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("break", $this->plugin);
+            $v->setExecutor(new BreakCommand());
+            $v->setDescription("break the target block");
+            $v->setPermission("pmessentials.break");
+            $v->setUsage("/break");
+            $this->register($v);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
             $this->error($e);
         }
     }

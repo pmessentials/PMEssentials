@@ -6,8 +6,10 @@ namespace pmessentials\PMEssentials\command;
 
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\Main;
+use pocketmine\block\BlockFactory;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
+use pocketmine\item\ItemFactory;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 

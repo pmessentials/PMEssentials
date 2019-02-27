@@ -173,3 +173,6 @@ permissions:
     default: op
     description: "spawn a tree"
     children:
+   pmessentials.break:
+    default: op
+    description: "break a block"
