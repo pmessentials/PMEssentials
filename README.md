@@ -22,6 +22,7 @@ List of commands:
 - [x] /size
 - [x] /smite
 - [x] /speed
+- [x] /thru
 - [x] /tree
 - [x] /usage
 - [x] /vanish

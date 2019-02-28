@@ -7,8 +7,10 @@ namespace pmessentials\PMEssentials\command;
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\event\PlayerHealEvent;
 use pmessentials\PMEssentials\event\ThorEvent;
+use pmessentials\PMEssentials\event\ThruEvent;
 use pmessentials\PMEssentials\event\TreeEvent;
 use pmessentials\PMEssentials\Main;
+use pocketmine\block\Block;
 use pocketmine\block\BlockFactory;
 use pocketmine\block\Sapling;
 use pocketmine\command\Command as pmCommand;
@@ -25,12 +27,16 @@ use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\generator\object\SpruceTree;
 use pocketmine\level\generator\populator\Tree;
 use pocketmine\level\Position;
+use pocketmine\math\Vector3;
+use pocketmine\math\VoxelRayTrace;
 use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\Player;
 use pocketmine\utils\Random;
 use pocketmine\utils\TextFormat;
 
-class BreakCommand extends SimpleExecutor {
+class ThruCommand extends SimpleExecutor {
+
+    protected $ignore = [0, 9, 8, 31, 175];
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
@@ -38,18 +44,26 @@ class BreakCommand extends SimpleExecutor {
             $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player"));
             return true;
         }
-        $ev = new BlockBreakEvent($sender, $sender->getTargetBlock(100), ItemFactory::get(0), true, []);
-        $ev->call();
-        if($ev->isCancelled()){
-            return true;
+        $bool = false;
+        $through = null;
+        foreach(VoxelRayTrace::inDirection($sender->add(0, $sender->getEyeHeight(), 0), $sender->getDirectionVector(), 30) as $block){
+            if(!in_array($sender->getLevel()->getBlockAt($block->x, $block->y, $block->z)->getId(), $this->ignore)){
+                $bool = true;
+            }elseif($bool === true){
+                $through = $sender->getLevel()->getBlockAt($block->x, $block->y, $block->z);
+                break;
+            }
         }
-        $block = $ev->getBlock();
-        if($block->getId() == 0){
-            $sender->sendMessage(TextFormat::colorize("&4Cannot break air!"));
-            return true;
+        if($through instanceof Vector3){
+            $ev = new ThruEvent($sender, $through);
+            if($ev->isCancelled()){
+                return true;
+            }
+            $sender->teleport($ev->getBlock());
+            $sender->sendMessage(TextFormat::colorize("&6Going through the target block."));
+        }else{
+            $sender->sendMessage(TextFormat::colorize("&4Nothing to go through!"));
         }
-        $block->getLevel()->setBlockIdAt($block->getFloorX(), $block->getFloorY(), $block->getFloorZ(), 0);
-        $sender->sendMessage(TextFormat::colorize("&6Broke the block you're looking at."));
         return true;
     }
 }

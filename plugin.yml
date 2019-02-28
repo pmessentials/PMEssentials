@@ -176,3 +176,6 @@ permissions:
    pmessentials.break:
     default: op
     description: "break a block"
+   pmessentials.thru:
+    default: op
+    description: "go through a block"

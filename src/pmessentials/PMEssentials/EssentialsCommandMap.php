@@ -21,6 +21,7 @@ use pmessentials\PMEssentials\command\SimpleCommand;
 use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\SpeedCommand;
 use pmessentials\PMEssentials\command\ThorCommand;
+use pmessentials\PMEssentials\command\ThruCommand;
 use pmessentials\PMEssentials\command\TreeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
@@ -293,6 +294,18 @@ class EssentialsCommandMap {
             $v->setDescription("break the target block");
             $v->setPermission("pmessentials.break");
             $v->setUsage("/break");
+            $this->register($v);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("thru", $this->plugin);
+            $v->setExecutor(new ThruCommand());
+            $v->setDescription("go through a block");
+            $v->setPermission("pmessentials.thru");
+            $v->setUsage("/thru");
             $this->register($v);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
