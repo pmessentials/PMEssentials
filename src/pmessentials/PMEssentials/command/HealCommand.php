@@ -14,9 +14,25 @@ use pocketmine\utils\TextFormat;
 
 class HealCommand extends SimpleExecutor {
 
+    protected $cooldown = [];
+    protected $wait = 2*60;
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[0]) && $sender->hasPermission("pmessentials.heal.other")){
+        $this->wait = $this->plugin->config->get("heal.cooldown");
+        $t = microtime(true);
+
+        if (isset($this->cooldown[$sender->getName()]) && $this->cooldown[$sender->getName()] + $this->wait > $t && !$sender->hasPermission(Main::PERMISSION_PREFIX."heal.instant")) {
+            $min = (int)floor(($this->cooldown[$sender->getName()] + $this->wait - $t)/60);
+            if($min == 0){
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can heal again."));
+            }else{
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c" . $min . "&4 minutes and &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can heal again."));
+            }
+            return true;
+        }
+
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."heal.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
@@ -35,6 +51,10 @@ class HealCommand extends SimpleExecutor {
         $ev->call();
         if($ev->isCancelled()){
             return true;
+        }
+
+        if (!$sender->hasPermission(Main::PERMISSION_PREFIX."heal.instant")) {
+            $this->cooldown[$sender->getName()] = $t;
         }
         $player->setHealth($ev->getHealth());
         if($player === $sender){

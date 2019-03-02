@@ -16,7 +16,7 @@ class VanishCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[0]) && $sender->hasPermission("pmessentials.vanish.other")){
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
                 if($this->api->getVanishedPlayer($args[0]) !== null){

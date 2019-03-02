@@ -71,12 +71,12 @@ class GameModeCommand extends SimpleExecutor {
             return true;
         }
 
-        if(!$sender->hasPermission("pmessentials.gamemode.".$gmstr)){
+        if(!$sender->hasPermission(Main::PERMISSION_PREFIX."gamemode.".$gmstr)){
             $sender->sendMessage(TextFormat::colorize("&4You're not allowed to change someone's gamemode to &c".$gmstr."&4!"));
             return true;
         }
 
-        if(isset($target) && $sender->hasPermission("pmessentials.gamemode.other")){
+        if(isset($target) && $sender->hasPermission(Main::PERMISSION_PREFIX."gamemode.other")){
             $match = $this->plugin->getServer()->matchPlayer($target);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$target."&r&4 not found!"));

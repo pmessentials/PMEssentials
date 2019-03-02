@@ -17,7 +17,7 @@ class PosCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[0]) && $sender->hasPermission("pmessentials.xyz.other")){
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."xyz.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
@@ -39,7 +39,7 @@ class PosCommand extends SimpleExecutor {
         }
         $pos = $ev->getPosition();
         $str = "&6 position is X: &c".$pos->getFloorX()."&6, Y: &c".$pos->getFloorY()."&6, Z: &c".$pos->getFloorZ()."&6";
-        if($sender->hasPermission("pmessentials.xyz.world") && null !== $pos->getLevel()){
+        if($sender->hasPermission(Main::PERMISSION_PREFIX."xyz.world") && null !== $pos->getLevel()){
             $str = $str."&6 in level &c".$pos->getLevel()->getName()."&6";
         }
         $str = $str."&6.";

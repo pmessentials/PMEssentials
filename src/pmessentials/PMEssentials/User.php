@@ -56,7 +56,7 @@ class User{
             $this->vanish = true;
             $this->plugin->getServer()->removeOnlinePlayer($this->getPlayer());
             foreach($this->plugin->getServer()->getLoggedInPlayers() as $target){
-                if(!$target->hasPermission("pmessentials.vanish.see")){
+                if(!$target->hasPermission(Main::PERMISSION_PREFIX."vanish.see")){
                     $target->hidePlayer($this->getPlayer());
                 }
             }

@@ -62,7 +62,7 @@ class EssentialsCommandMap {
             $nick = new SimpleCommand("nick", $this->plugin);
             $nick->setExecutor(new NickCommand());
             $nick->setDescription("change your nickname");
-            $nick->setPermission("pmessentials.nick.self");
+            $nick->setPermission(Main::PERMISSION_PREFIX."nick.self");
             $nick->setAliases(["name", "nickname"]);
             $nick->setUsage("/nick [nick] [player]");
             $this->register($nick);
@@ -76,7 +76,7 @@ class EssentialsCommandMap {
             $heal = new SimpleCommand("heal", $this->plugin);
             $heal->setExecutor(new HealCommand());
             $heal->setDescription("heal a player");
-            $heal->setPermission("pmessentials.heal.self");
+            $heal->setPermission(Main::PERMISSION_PREFIX."heal.self");
             $heal->setUsage("/heal [player]");
             $this->register($heal);
         }catch (\Throwable $e){
@@ -88,7 +88,7 @@ class EssentialsCommandMap {
             $feed = new SimpleCommand("feed", $this->plugin);
             $feed->setExecutor(new FeedCommand());
             $feed->setDescription("feed a player");
-            $feed->setPermission("pmessentials.feed.self");
+            $feed->setPermission(Main::PERMISSION_PREFIX."feed.self");
             $feed->setUsage("/feed [player]");
             $this->register($feed);
         }catch (\Throwable $e){
@@ -103,7 +103,7 @@ class EssentialsCommandMap {
             $gm = new SimpleCommand("gamemode", $this->plugin);
             $gm->setExecutor(new GameModeCommand());
             $gm->setDescription("change your gamemode");
-            $gm->setPermission("pmessentials.gamemode.self");
+            $gm->setPermission(Main::PERMISSION_PREFIX."gamemode.self");
             $gm->setAliases(["gm", "gms", "gmc", "gma", "gmspc", "gmv"]);
             $gm->setUsage("/gamemode <mode> [player]");
             $this->register($gm);
@@ -116,7 +116,7 @@ class EssentialsCommandMap {
             $i = new SimpleCommand("i", $this->plugin);
             $i->setExecutor(new ICommand());
             $i->setDescription("gives you an item");
-            $i->setPermission("pmessentials.i");
+            $i->setPermission(Main::PERMISSION_PREFIX."i");
             $i->setUsage("/i <item>:[meta] [count]");
             $this->register($i);
         }catch (\Throwable $e){
@@ -128,7 +128,7 @@ class EssentialsCommandMap {
             $size = new SimpleCommand("size", $this->plugin);
             $size->setExecutor(new SizeCommand());
             $size->setDescription("resize a player");
-            $size->setPermission("pmessentials.size.self");
+            $size->setPermission(Main::PERMISSION_PREFIX."size.self");
             $size->setAliases(["scale"]);
             $size->setUsage("/size [size] [player]");
             $this->register($size);
@@ -141,7 +141,7 @@ class EssentialsCommandMap {
             $realname = new SimpleCommand("realname", $this->plugin);
             $realname->setExecutor(new RealNameCommand());
             $realname->setDescription("view someone's real name");
-            $realname->setPermission("pmessentials.realname");
+            $realname->setPermission(Main::PERMISSION_PREFIX."realname");
             $realname->setUsage("/realname <nick>");
             $this->register($realname);
         }catch (\Throwable $e){
@@ -153,7 +153,7 @@ class EssentialsCommandMap {
             $usage = new SimpleCommand("usage", $this->plugin);
             $usage->setExecutor(new UsageCommand());
             $usage->setDescription("Check a command's usage");
-            $usage->setPermission("pmessentials.usage");
+            $usage->setPermission(Main::PERMISSION_PREFIX."usage");
             $usage->setAliases(["howtouse"]);
             $usage->setUsage("/usage <command>");
             $this->register($usage);
@@ -166,7 +166,7 @@ class EssentialsCommandMap {
             $pt = new SimpleCommand("powertool", $this->plugin);
             $pt->setExecutor(new PowertoolCommand());
             $pt->setDescription("Assign a command to an item");
-            $pt->setPermission("pmessentials.powertool.set");
+            $pt->setPermission(Main::PERMISSION_PREFIX."powertool.set");
             $pt->setAliases(["pt"]);
             $pt->setUsage("/powertool <command>");
             $this->register($pt);
@@ -179,7 +179,7 @@ class EssentialsCommandMap {
             $ping = new SimpleCommand("ping", $this->plugin);
             $ping->setExecutor(new PingCommand());
             $ping->setDescription("Pong!");
-            $ping->setPermission("pmessentials.ping");
+            $ping->setPermission(Main::PERMISSION_PREFIX."ping");
             $ping->setUsage("/ping");
             $this->register($ping);
         }catch (\Throwable $e){
@@ -191,7 +191,7 @@ class EssentialsCommandMap {
             $fly = new SimpleCommand("fly", $this->plugin);
             $fly->setExecutor(new FlyCommand());
             $fly->setDescription("enable/disable flight");
-            $fly->setPermission("pmessentials.fly.self");
+            $fly->setPermission(Main::PERMISSION_PREFIX."fly.self");
             $fly->setUsage("/fly [player]");
             $this->register($fly);
         }catch (\Throwable $e){
@@ -203,7 +203,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("vanish", $this->plugin);
             $v->setExecutor(new VanishCommand());
             $v->setDescription("enable/disable vanish");
-            $v->setPermission("pmessentials.vanish.self");
+            $v->setPermission(Main::PERMISSION_PREFIX."vanish.self");
             $v->setAliases(["v", "invis"]);
             $v->setUsage("/vanish [player]");
             $this->register($v);
@@ -216,7 +216,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("speed", $this->plugin);
             $v->setExecutor(new SpeedCommand());
             $v->setDescription("change your speed");
-            $v->setPermission("pmessentials.speed.self");
+            $v->setPermission(Main::PERMISSION_PREFIX."speed.self");
             $v->setAliases(["velocity"]);
             $v->setUsage("/speed <speed> [player]");
             $this->register($v);
@@ -229,7 +229,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("xyz", $this->plugin);
             $v->setExecutor(new PosCommand());
             $v->setDescription("show your coordinates");
-            $v->setPermission("pmessentials.xyz.self");
+            $v->setPermission(Main::PERMISSION_PREFIX."xyz.self");
             $v->setAliases(["getpos", "position"]);
             $v->setUsage("/xyz [player]");
             $this->register($v);
@@ -242,7 +242,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("godmode", $this->plugin);
             $v->setExecutor(new GodCommand());
             $v->setDescription("toggle godmode");
-            $v->setPermission("pmessentials.godmode.self");
+            $v->setPermission(Main::PERMISSION_PREFIX."godmode.self");
             $v->setAliases(["god"]);
             $v->setUsage("/godmode [player]");
             $this->register($v);
@@ -255,7 +255,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("nuke", $this->plugin);
             $v->setExecutor(new NukeCommand());
             $v->setDescription("nuke someone");
-            $v->setPermission("pmessentials.nuke.self");
+            $v->setPermission(Main::PERMISSION_PREFIX."nuke.self");
             $v->setUsage("/nuke [player]");
             $this->register($v);
         }catch (\Throwable $e){
@@ -267,7 +267,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("smite", $this->plugin);
             $v->setExecutor(new ThorCommand());
             $v->setDescription("Thou hast been smitten");
-            $v->setPermission("pmessentials.smite");
+            $v->setPermission(Main::PERMISSION_PREFIX."smite");
             $v->setAliases(["thor", "lightning"]);
             $v->setUsage("/smite");
             $this->register($v);
@@ -280,7 +280,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("tree", $this->plugin);
             $v->setExecutor(new TreeCommand());
             $v->setDescription("Spawn a tree");
-            $v->setPermission("pmessentials.tree");
+            $v->setPermission(Main::PERMISSION_PREFIX."tree");
             $v->setUsage("/tree");
             $this->register($v);
         }catch (\Throwable $e){
@@ -292,7 +292,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("break", $this->plugin);
             $v->setExecutor(new BreakCommand());
             $v->setDescription("break the target block");
-            $v->setPermission("pmessentials.break");
+            $v->setPermission(Main::PERMISSION_PREFIX."break");
             $v->setUsage("/break");
             $this->register($v);
         }catch (\Throwable $e){
@@ -304,7 +304,7 @@ class EssentialsCommandMap {
             $v = new SimpleCommand("thru", $this->plugin);
             $v->setExecutor(new ThruCommand());
             $v->setDescription("go through a block");
-            $v->setPermission("pmessentials.thru");
+            $v->setPermission(Main::PERMISSION_PREFIX."thru");
             $v->setUsage("/thru");
             $this->register($v);
         }catch (\Throwable $e){

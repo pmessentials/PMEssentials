@@ -38,6 +38,9 @@ permissions:
      pmessentials.heal.other:
       default: op
       description: "heal someone else"
+     pmessentials.heal.instant:
+      default: op
+      description: "bypass the cooldown"
    pmessentials.feed:
     default: op
     description: "feed a player"
@@ -48,6 +51,9 @@ permissions:
      pmessentials.feed.other:
       default: op
       description: "feed someone else"
+     pmessentials.feed.instant:
+      default: op
+      description: "bypass the cooldown"
    pmessentials.gamemode:
     default: op
     description: "change gamemode"

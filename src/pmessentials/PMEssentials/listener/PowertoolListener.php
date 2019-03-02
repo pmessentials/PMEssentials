@@ -17,7 +17,7 @@ class PowertoolListener extends ListenerBase {
         $player = $event->getPlayer();
         $user = $this->plugin->getUserMap()->fromPlayer($player);
         $item = $player->getInventory()->getItemInHand();
-        if ($player->hasPermission("powertools.use") && $this->api->isPowertool($item)) {
+        if ($player->hasPermission(Main::PERMISSION_PREFIX."powertools.use") && $this->api->isPowertool($item)) {
 
             if (isset($user->data["powertools"]["cooldown"][$player->getName()]) && $user->data["powertools"]["cooldown"][$player->getName()] > microtime(true)) {
                 $event->setCancelled();

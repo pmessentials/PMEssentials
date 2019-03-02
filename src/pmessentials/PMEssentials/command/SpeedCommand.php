@@ -17,7 +17,7 @@ class SpeedCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[1]) && $sender->hasPermission("pmessentials.speed.other")){
+        if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."speed.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[1]);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[1]."&r&4 not found!"));

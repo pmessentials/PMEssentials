@@ -16,7 +16,7 @@ class NickCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[1]) && $sender->hasPermission("pmessentials.nick.other")){
+        if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."nick.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[1]);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[1]."&r&4 not found!"));
@@ -45,10 +45,10 @@ class NickCommand extends SimpleExecutor {
 
         $str = str_replace("+", " ", $args[0]);
         $str = TextFormat::colorize($str);
-        if(!$sender->hasPermission("pmessentials.nick.color")){
+        if(!$sender->hasPermission(Main::PERMISSION_PREFIX."nick.color")){
             $str = TextFormat::clean($str);
         }
-        if(!$sender->hasPermission("pmessentials.nick.custom") && strtolower($player->getName()) != strtolower(TextFormat::clean($str))){
+        if(!$sender->hasPermission(Main::PERMISSION_PREFIX."nick.custom") && strtolower($player->getName()) != strtolower(TextFormat::clean($str))){
             $sender->sendMessage(TextFormat::colorize("&4You're not allowed to set custom nicknames"));
             return true;
         }

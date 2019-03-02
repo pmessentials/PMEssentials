@@ -18,7 +18,7 @@ class GodCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[0]) && $sender->hasPermission("pmessentials.god.other")){
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."god.other")){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
