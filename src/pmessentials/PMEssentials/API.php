@@ -128,4 +128,17 @@ class API{
     public function isGodmode(Player $player) : bool{
         return $this->plugin->getUserMap()->fromPlayer($player)->isGodmode();
     }
+
+    # tpa api
+    public function sendTeleportRequest(Player $player, TeleportRequest $request) : void{
+        $this->plugin->getUserMap()->fromPlayer($player)->sendTeleportRequest($request);
+    }
+
+    public function hasTeleportRequest(Player $player) : bool{
+        $this->plugin->getUserMap()->fromPlayer($player)->hasTeleportRequest();
+    }
+
+    public function getTeleportRequest(Player $player) : TeleportRequest{
+        $this->plugin->getUserMap()->fromPlayer($player)->getTeleportRequest();
+    }
 }

@@ -22,6 +22,7 @@ use pmessentials\PMEssentials\command\SizeCommand;
 use pmessentials\PMEssentials\command\SpeedCommand;
 use pmessentials\PMEssentials\command\ThorCommand;
 use pmessentials\PMEssentials\command\ThruCommand;
+use pmessentials\PMEssentials\command\TpaCommand;
 use pmessentials\PMEssentials\command\TreeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
@@ -309,6 +310,19 @@ class EssentialsCommandMap {
             $this->register($v);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
+            $this->error($e);
+        }
+
+        try{
+            $v = new SimpleCommand("tpa", $this->plugin);
+            $v->setExecutor(new TpaCommand());
+            $v->setDescription("manage teleport requests");
+            $v->setPermission(Main::PERMISSION_PREFIX."tpa.command");
+            $v->setAliases(["tpahere", "tpaccept", "tpdeny"]);
+            $v->setUsage("/tpa <player>");
+            $this->register($v);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: tpa"));
             $this->error($e);
         }
     }

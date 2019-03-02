@@ -23,6 +23,11 @@ List of commands:
 - [x] /smite
 - [x] /speed
 - [x] /thru
+- [x] /tpa
+- [x] /tpaccept
+- [x] /tpahere
+- [x] /tpdeny
+- [x] /tphere
 - [x] /tree
 - [x] /usage
 - [x] /vanish
@@ -37,11 +42,6 @@ List of commands:
 - [ ] /setwarp
 - [ ] /spawn
 - [ ] /tp *(custom)*
-- [ ] /tpa
-- [ ] /tpaccept
-- [ ] /tpahere
-- [ ] /tpdeny
-- [ ] /tphere
 - [ ] /tpo
 - [ ] /tpohere
 - [ ] /warp
