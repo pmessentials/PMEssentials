@@ -14,10 +14,9 @@ use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class TpaCommand extends SimpleExecutor {
+class TpahereCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool{
-
         if (isset($args[0])) {
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if (empty($match)) {
@@ -39,7 +38,7 @@ class TpaCommand extends SimpleExecutor {
             return true;
         }
 
-        $ev = new TeleportRequestEvent($player, $sender, new TeleportRequest($player, $sender, microtime(true), false));
+        $ev = new TeleportRequestEvent($player, $sender, new TeleportRequest($player, $sender, microtime(true), true));
         $ev->call();
         if($ev->isCancelled()){
             return true;

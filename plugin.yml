@@ -187,17 +187,10 @@ permissions:
     description: "go through a block"
    pmessentials.tpa:
     default: true
-    description: "manage tpa requests"
-    children:
-     pmessentials.tpa.command:
-      default: true
-      description: "permission to use the commands (does nothing by itself, but needed for the other perms"
-     pmessentials.tpa.tpa:
-      default: true
-      description: "request someone to tp to them"
-     pmessentials.tpa.respond:
-      default: true
-      description: "accept/deny teleport requests"
-     pmessentials.tpa.tpahere:
-      default: true
-      description: "request someone to tp to you"
+    description: "allows /tpa"
+   pmessentials.tpahere:
+    default: true
+    description: "allows /tpahere"
+   pmessentials.tpaccept:
+    default: true
+    description: "accept/deny teleport requests"
