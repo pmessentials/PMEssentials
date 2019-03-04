@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\command\BreakCommand;
+use pmessentials\PMEssentials\command\BurnCommand;
+use pmessentials\PMEssentials\command\ExtinguishCommand;
 use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\FlyCommand;
 use pmessentials\PMEssentials\command\GameModeCommand;
@@ -351,6 +353,31 @@ class EssentialsCommandMap {
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: tpaccept/tpdeny"));
             $this->error($e);
         }
+
+        try{
+            $cmd = new SimpleCommand("burn", $this->plugin);
+            $cmd->setExecutor(new BurnCommand());
+            $cmd->setDescription("set someone on fire");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."burn");
+            $cmd->setUsage("/burn [player] [seconds]");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: burn"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("extinguish", $this->plugin);
+            $cmd->setExecutor(new ExtinguishCommand());
+            $cmd->setDescription("extinguish someone");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."extinguish");
+            $cmd->setAliases(["ext"]);
+            $cmd->setUsage("/extinguish [player]");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: extinguish"));
+            $this->error($e);
+        }
     }
 
     public function register(Command $command) : void{
@@ -378,7 +405,7 @@ class EssentialsCommandMap {
         return $this->commands;
     }
 
-    private function error(\Throwable $e) : void{
+    protected function error(\Throwable $e) : void{
         $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("&cError ".$e->getCode().": ".$e->getMessage()." on line ".$e->getLine()." in file ".$e->getFile()));
     }
 }

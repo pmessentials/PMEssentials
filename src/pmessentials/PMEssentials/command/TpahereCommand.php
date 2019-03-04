@@ -34,7 +34,7 @@ class TpahereCommand extends SimpleExecutor {
         }
 
         if (!$player instanceof Player) {
-            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
+            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player."));
             return true;
         }
 

@@ -27,7 +27,7 @@ class RealNameCommand extends SimpleExecutor {
         }
 
         if(!$player instanceof Player){
-            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player"));
+            $sender->sendMessage(TextFormat::colorize("&4Target needs to be a player."));
             return true;
         }
         $sender->sendMessage(TextFormat::colorize("&c".$player->getDisplayName()."&r&6's real name is &c".$player->getName()."&r&6."));

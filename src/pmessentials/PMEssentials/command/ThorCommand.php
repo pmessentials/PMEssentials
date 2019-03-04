@@ -22,7 +22,7 @@ class ThorCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){
-            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player"));
+            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player."));
             return true;
         }
         $ev = new ThorEvent($sender, $sender->getTargetBlock(100));
@@ -33,7 +33,7 @@ class ThorCommand extends SimpleExecutor {
         $this->addStrike($ev->getPosition());
         $explosion = new Explosion($ev->getPosition(), 3);
         $explosion->explodeB();
-        $sender->sendMessage(TextFormat::colorize("&6Smiting"));
+        $sender->sendMessage(TextFormat::colorize("&6Smiting!"));
         return true;
     }
 

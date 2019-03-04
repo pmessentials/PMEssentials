@@ -5,6 +5,8 @@ A collection of PMMP commands, features and more. Heavily inspired by Essentials
 ## Commands:
 List of commands:
 - [x] /break
+- [x] /burn
+- [x] /extinguish
 - [x] /feed  
 - [x] /gamemode *(custom)*
 - [x] /gma
