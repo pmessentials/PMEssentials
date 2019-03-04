@@ -24,7 +24,6 @@ permissions:
      pmessentials.nick.self:
       default: op
       description: "change your nickname"
-      pmessentials.heal:
      pmessentials.nick.other:
       default: op
       description: "change someone else's nickname"
@@ -142,14 +141,14 @@ permissions:
       default: op
       description: "change someone else's movement speed"
    pmessentials.xyz:
-    default: true
+    default: op
     description: "shows coordinates"
     children:
      pmessentials.xyz.world:
       default: op
       description: "shows the world you're in"
      pmessentials.xyz.self:
-      default: op
+      default: true
       description: "shows your coordinates"
      pmessentials.xyz.other:
       default: op
