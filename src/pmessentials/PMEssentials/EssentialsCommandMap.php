@@ -7,6 +7,7 @@ namespace pmessentials\PMEssentials;
 use pmessentials\PMEssentials\command\BackCommand;
 use pmessentials\PMEssentials\command\BreakCommand;
 use pmessentials\PMEssentials\command\BurnCommand;
+use pmessentials\PMEssentials\command\ClearinventoryCommand;
 use pmessentials\PMEssentials\command\ExtinguishCommand;
 use pmessentials\PMEssentials\command\FeedCommand;
 use pmessentials\PMEssentials\command\FlyCommand;
@@ -389,6 +390,19 @@ class EssentialsCommandMap {
             $this->register($cmd);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: back"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("clearinventory", $this->plugin);
+            $cmd->setExecutor(new ClearinventoryCommand());
+            $cmd->setDescription("clear someone's inventory");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."clearinventory.self");
+            $cmd->setAliases(["clear", "clearinv"]);
+            $cmd->setUsage("/clearinventory [player]");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: clearinventory"));
             $this->error($e);
         }
     }

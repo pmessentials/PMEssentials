@@ -202,3 +202,13 @@ permissions:
    pmessentials.back:
     default: op
     description: "teleport to your previous position"
+   pmessentials.clearinventory:
+    default: op
+    description: "clear a player's inventory"
+    children:
+     pmessentials.clearinventory.self:
+      default: true
+      description: "clear your inventory"
+     pmessentials.clearinventory.other:
+      default: op
+      description: "clear someone else's inventory"

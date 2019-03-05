@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials\command;
 
+use pmessentials\PMEssentials\event\PlayerBackEvent;
 use pocketmine\command\Command as pmCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -23,9 +24,15 @@ class BackCommand extends SimpleExecutor {
             $sender->sendMessage(TextFormat::colorize("&4You have no previous position to go to!"));
             return true;
         }
-        $sender->teleport($user->getLastPos());
-        if($sender->getLevel() !== $user->getLastPos()->getLevel()){
-            $sender->setLevel($user->getLastPos()->getLevel());
+        $ev = new PlayerBackEvent($sender, $user->getLastPos());
+        $ev->call();
+        if($ev->isCancelled()){
+            return true;
+        }
+
+        $sender->teleport($ev->getPosition());
+        if($sender->getLevel() !== $ev->getPosition()->getLevel()){
+            $sender->setLevel($ev->getPosition()->getLevel());
         }
         $sender->sendMessage(TextFormat::colorize("&6Teleporting to your previous position..."));
         return true;

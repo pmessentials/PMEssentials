@@ -1,5 +1,5 @@
 # PMEssentials
-A collection of PMMP commands, features and more. Heavily inspired by Essentials
+A collection of essential PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
 ## Commands:
@@ -7,6 +7,7 @@ List of commands:
 - [x] /back
 - [x] /break
 - [x] /burn
+- [x] /clearinventory
 - [x] /extinguish
 - [x] /feed  
 - [x] /gamemode *(custom)*

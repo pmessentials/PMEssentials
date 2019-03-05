@@ -23,6 +23,8 @@ class SizeCommand extends SimpleExecutor {
                 return true;
             }
             $player = $match[0];
+        }elseif(isset($args[1])){
+            $sender->sendMessage(TextFormat::colorize("&4You don't have permission to change someone else's size!"));
         }else{
             $player = $sender;
         }
