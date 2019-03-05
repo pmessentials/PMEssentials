@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials;
 
+use pmessentials\PMEssentials\command\BackCommand;
 use pmessentials\PMEssentials\command\BreakCommand;
 use pmessentials\PMEssentials\command\BurnCommand;
 use pmessentials\PMEssentials\command\ExtinguishCommand;
@@ -376,6 +377,18 @@ class EssentialsCommandMap {
             $this->register($cmd);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: extinguish"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("back", $this->plugin);
+            $cmd->setExecutor(new BackCommand());
+            $cmd->setDescription("teleport to your previous position");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."back");
+            $cmd->setUsage("/back");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: back"));
             $this->error($e);
         }
     }

@@ -7,7 +7,6 @@ namespace pmessentials\PMEssentials\listener;
 use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\event\PlayerVanishEvent;
 use pmessentials\PMEssentials\Main;
-use pmessentials\PMEssentials\module\VanishModule;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;

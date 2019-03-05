@@ -35,7 +35,7 @@ class BreakCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){
-            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player"));
+            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player."));
             return true;
         }
         $ev = new BlockBreakEvent($sender, $sender->getTargetBlock(100), ItemFactory::get(0), true, []);

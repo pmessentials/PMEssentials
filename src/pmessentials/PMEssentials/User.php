@@ -7,6 +7,7 @@ namespace pmessentials\PMEssentials;
 use pmessentials\PMEssentials\event\PlayerGodmodeEvent;
 use pmessentials\PMEssentials\event\PlayerVanishEvent;
 use pmessentials\PMEssentials\Main;
+use pocketmine\level\Position;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
@@ -23,6 +24,8 @@ class User{
     protected $request;
     protected $vanish = false;
     protected $godmode = false;
+    /** @var Position */
+    protected $lastpos;
 
     public function getUserMap() : UserMap{
         return $this->map;
@@ -133,5 +136,13 @@ class User{
             unset($this->request);
         }
         return $bool;
+    }
+
+    public function getLastPos() : ?Position{
+        return $this->lastpos ?? null;
+    }
+
+    public function setLastPos(Position $pos) : void{
+        $this->lastpos = $pos;
     }
 }

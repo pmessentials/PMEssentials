@@ -32,7 +32,7 @@ class TreeCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){
-            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player"));
+            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player."));
             return true;
         }
         $type = Sapling::OAK;
