@@ -31,12 +31,18 @@ class UserMap{
         unset($this->users[$user->getPlayer()->getName()]);
     }
 
-    public function getUser(string $name) : User{
-        return $this->users[$name];
+    public function getUser(string $name) : ?User{
+        if(isset($this->users[$player->getName()])){
+            return $this->users[$name];
+        }
+        return null;
     }
 
-    public function fromPlayer(Player $player) : User{
-        return $this->users[$player->getName()];
+    public function fromPlayer(Player $player) : ?User{
+        if(isset($this->users[$player->getName()])){
+            return $this->users[$player->getName()];
+        }
+        return null;
     }
 
     public function getUsers() : array {

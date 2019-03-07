@@ -8,8 +8,8 @@ use pmessentials\PMEssentials\API;
 use pmessentials\PMEssentials\listener\BackListener;
 use pmessentials\PMEssentials\listener\GodmodeListener;
 use pmessentials\PMEssentials\listener\ListenerBase;
-use pmessentials\PMEssentials\listener\PlayerEventListener;
 use pmessentials\PMEssentials\listener\PowertoolListener;
+use pmessentials\PMEssentials\listener\UserEventListener;
 use pmessentials\PMEssentials\listener\VanishListener;
 use pmessentials\PMEssentials\module\ModuleManager;
 use pocketmine\event\entity\EntityTeleportEvent;
@@ -56,7 +56,7 @@ class Main extends PluginBase{
         $this->listeners[BackListener::class] = new BackListener();
 	    $this->commandMap = EssentialsCommandMap::getInstance();
 
-	    $this->listeners[PlayerEventListener::class] = new PlayerEventListener();
+	    $this->listeners[UserEventListener::class] = new UserEventListener();
 	}
 
 
