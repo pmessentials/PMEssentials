@@ -26,6 +26,7 @@ class ClearinventoryCommand extends SimpleExecutor {
             $player = $match[0];
         }elseif(isset($args[1])){
             $sender->sendMessage(TextFormat::colorize("&4You don't have permission to clear someone else's inventory!"));
+            return true;
         }else{
             $player = $sender;
         }

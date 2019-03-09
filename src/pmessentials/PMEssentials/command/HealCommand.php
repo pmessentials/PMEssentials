@@ -41,6 +41,7 @@ class HealCommand extends SimpleExecutor {
             $player = $match[0];
         }elseif(isset($args[1])){
             $sender->sendMessage(TextFormat::colorize("&4You don't have permission to heal someone else!"));
+            return true;
         }else{
             $player = $sender;
         }

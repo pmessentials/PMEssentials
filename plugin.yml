@@ -227,3 +227,16 @@ permissions:
    pmessentials.broadcast:
     default: op
     description: "broadcast a message"
+   pmessentials.milk:
+    default: op
+    description: "clear all effects"
+    children:
+     pmessentials.milk.self:
+      default: op
+      description: "clear own effects"
+     pmessentials.milk.other:
+      default: op
+      description: "clear other's effects"
+     pmessentials.milk.instant:
+      default: op
+      description: "bypass the cooldown"

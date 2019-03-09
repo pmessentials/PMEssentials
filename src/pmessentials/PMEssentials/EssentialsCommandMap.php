@@ -16,6 +16,7 @@ use pmessentials\PMEssentials\command\GameModeCommand;
 use pmessentials\PMEssentials\command\GodCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
+use pmessentials\PMEssentials\command\MilkCommand;
 use pmessentials\PMEssentials\command\NickCommand;
 use pmessentials\PMEssentials\command\NukeCommand;
 use pmessentials\PMEssentials\command\PingCommand;
@@ -414,6 +415,19 @@ class EssentialsCommandMap {
             $cmd->setPermission(Main::PERMISSION_PREFIX."broadcast");
             $cmd->setAliases(["bc", "bcast"]);
             $cmd->setUsage("/broadcast <message>");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: broadcast"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("milk", $this->plugin);
+            $cmd->setExecutor(new MilkCommand());
+            $cmd->setDescription("clear all effects");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."milk.self");
+            $cmd->setAliases(["cure"]);
+            $cmd->setUsage("/milk [player]");
             $this->register($cmd);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: broadcast"));

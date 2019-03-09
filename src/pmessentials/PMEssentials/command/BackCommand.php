@@ -21,7 +21,7 @@ class BackCommand extends SimpleExecutor {
         $this->wait = $this->plugin->config->get("back.cooldown");
         $t = microtime(true);
 
-        if (isset($this->cooldown[$sender->getName()]) && $this->cooldown[$sender->getName()] + $this->wait > $t && !$sender->hasPermission(Main::PERMISSION_PREFIX."feed.instant")) {
+        if (isset($this->cooldown[$sender->getName()]) && $this->cooldown[$sender->getName()] + $this->wait > $t && !$sender->hasPermission(Main::PERMISSION_PREFIX."back.instant")) {
             $min = (int)floor(($this->cooldown[$sender->getName()] + $this->wait - $t)/60);
             if($min == 0){
                 $sender->sendMessage(TextFormat::colorize("&4You need to wait &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can use this command again."));

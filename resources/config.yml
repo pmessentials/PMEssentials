@@ -12,6 +12,7 @@ feed.cooldown: 120
 back.cooldown: 60
 smite.cooldown: 300
 extinguish.cooldown: 180
+milk.cooldown: 120
 
 # timeout for teleport request (in seconds)
 tpa.timeout: 120

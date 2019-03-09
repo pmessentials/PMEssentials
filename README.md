@@ -19,6 +19,7 @@ List of commands:
 - [x] /god
 - [x] /heal
 - [x] /i
+- [x] /milk
 - [x] /nick
 - [x] /nuke
 - [x] /ping
@@ -50,6 +51,7 @@ List of commands:
 - [ ] /tpo
 - [ ] /tpohere
 - [ ] /warp
+- [ ] *a ton more...*
 
 ## API:
 **PMEssentials** has an API for developers can tweak a lot of features and improve them. You can access the UserMap to get users and externally enable things like godmode or vanish. The plugin also has quite a few events you can use to for instance modify command behaviour.
