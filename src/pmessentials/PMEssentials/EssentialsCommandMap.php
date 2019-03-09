@@ -6,6 +6,7 @@ namespace pmessentials\PMEssentials;
 
 use pmessentials\PMEssentials\command\BackCommand;
 use pmessentials\PMEssentials\command\BreakCommand;
+use pmessentials\PMEssentials\command\BroadcastCommand;
 use pmessentials\PMEssentials\command\BurnCommand;
 use pmessentials\PMEssentials\command\ClearinventoryCommand;
 use pmessentials\PMEssentials\command\ExtinguishCommand;
@@ -403,6 +404,19 @@ class EssentialsCommandMap {
             $this->register($cmd);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: clearinventory"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("broadcast", $this->plugin);
+            $cmd->setExecutor(new BroadcastCommand());
+            $cmd->setDescription("broadcast a message");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."broadcast");
+            $cmd->setAliases(["bc", "bcast"]);
+            $cmd->setUsage("/broadcast <message>");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: broadcast"));
             $this->error($e);
         }
     }

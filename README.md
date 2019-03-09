@@ -6,6 +6,7 @@ A collection of essential PMMP commands, features and more. Heavily inspired by 
 List of commands:
 - [x] /back
 - [x] /break
+- [x] /broadcast
 - [x] /burn
 - [x] /clearinventory
 - [x] /extinguish

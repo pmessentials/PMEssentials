@@ -12,7 +12,6 @@ use pmessentials\PMEssentials\listener\PowertoolListener;
 use pmessentials\PMEssentials\listener\UserEventListener;
 use pmessentials\PMEssentials\listener\VanishListener;
 use pmessentials\PMEssentials\module\ModuleManager;
-use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;

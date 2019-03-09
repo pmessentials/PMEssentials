@@ -19,8 +19,24 @@ use pocketmine\utils\TextFormat;
 
 class ThorCommand extends SimpleExecutor {
 
+    protected $cooldown = [];
+    protected $wait = 5*60;
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
+        $this->wait = $this->plugin->config->get("smite.cooldown");
+        $t = microtime(true);
+
+        if (isset($this->cooldown[$sender->getName()]) && $this->cooldown[$sender->getName()] + $this->wait > $t && !$sender->hasPermission(Main::PERMISSION_PREFIX."feed.instant")) {
+            $min = (int)floor(($this->cooldown[$sender->getName()] + $this->wait - $t)/60);
+            if($min == 0){
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can use this command again."));
+            }else{
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c" . $min . "&4 minutes and &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can use this command again."));
+            }
+            return true;
+        }
+
         if(!$sender instanceof Player){
             $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player."));
             return true;
@@ -30,6 +46,10 @@ class ThorCommand extends SimpleExecutor {
         if($ev->isCancelled()){
             return true;
         }
+        if (!$sender->hasPermission(Main::PERMISSION_PREFIX."smite.instant")) {
+            $this->cooldown[$sender->getName()] = $t;
+        }
+
         $this->addStrike($ev->getPosition());
         $explosion = new Explosion($ev->getPosition(), 3);
         $explosion->explodeB();

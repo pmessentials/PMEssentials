@@ -16,8 +16,24 @@ use pocketmine\utils\TextFormat;
 
 class ExtinguishCommand extends SimpleExecutor {
 
+    protected $cooldown = [];
+    protected $wait = 3*60;
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
+        $this->wait = $this->plugin->config->get("extinguish.cooldown");
+        $t = microtime(true);
+
+        if (isset($this->cooldown[$sender->getName()]) && $this->cooldown[$sender->getName()] + $this->wait > $t && !$sender->hasPermission(Main::PERMISSION_PREFIX."extinguish.instant")) {
+            $min = (int)floor(($this->cooldown[$sender->getName()] + $this->wait - $t)/60);
+            if($min == 0){
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can use this command again."));
+            }else{
+                $sender->sendMessage(TextFormat::colorize("&4You need to wait &c" . $min . "&4 minutes and &c".date("s", (int)$this->cooldown[$sender->getName()] + $this->wait - (int)$t)."&4 seconds before you can use this command again."));
+            }
+            return true;
+        }
+
         if(isset($args[0])){
             $match = $this->plugin->getServer()->matchPlayer($args[0]);
             if(empty($match)){
@@ -43,6 +59,10 @@ class ExtinguishCommand extends SimpleExecutor {
         if($ev->isCancelled()){
             return true;
         }
+        if (!$sender->hasPermission(Main::PERMISSION_PREFIX."extinguish.instant")) {
+            $this->cooldown[$sender->getName()] = $t;
+        }
+
         $player->extinguish();
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6You have been extinguished."));
