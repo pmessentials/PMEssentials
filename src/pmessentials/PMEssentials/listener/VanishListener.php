@@ -18,7 +18,7 @@ class VanishListener extends ListenerBase {
     public function onJoin(PlayerJoinEvent $e) : void{
         $p = $e->getPlayer();
         foreach($this->api->getVanishedPlayers() as $vanishedPlayer){
-            $p->hidePlayer($vanishedPlayer);
+            $p->hidePlayer($vanishedPlayer->getPlayer());
         }
     }
 
