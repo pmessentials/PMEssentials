@@ -66,13 +66,13 @@ class API{
         $array = [];
         foreach($this->plugin->getUserMap()->getUsers() as $user){
             if($user->isVanished()){
-                $array[$user->getPlayer()->getName()] = $user;
+                $array[$user->getPlayer()->getName()] = $user->getPlayer();
             }
         }
         return $array;
     }
 
-    public function getVanishedPlayer(string $name) : Player{
+    public function getVanishedPlayer(string $name) : ?Player{
         $array = $this->getVanishedPlayers();
         return $array[$name] ?? null;
 

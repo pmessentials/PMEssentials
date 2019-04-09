@@ -34,6 +34,7 @@ use pmessentials\PMEssentials\command\TpahereCommand;
 use pmessentials\PMEssentials\command\TreeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
+use pmessentials\PMEssentials\command\WildCommand;
 use pmessentials\PMEssentials\listener\PowertoolListener;
 use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command;
@@ -430,7 +431,7 @@ class EssentialsCommandMap {
             $cmd->setUsage("/milk [player]");
             $this->register($cmd);
         }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: broadcast"));
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: milk"));
             $this->error($e);
         }
     }
