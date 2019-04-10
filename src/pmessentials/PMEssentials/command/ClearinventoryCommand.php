@@ -17,14 +17,14 @@ class ClearinventoryCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."clearinventory.other")){
-            $match = $this->plugin->getServer()->matchPlayer($args[1]);
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."clearinventory.other")){
+            $match = $match = $this->api->matchPlayer($args[0], $sender);
             if(empty($match)){
-                $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[1]."&r&4 not found!"));
+                $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
                 return true;
             }
             $player = $match[0];
-        }elseif(isset($args[1])){
+        }elseif(isset($args[0])){
             $sender->sendMessage(TextFormat::colorize("&4You don't have permission to clear someone else's inventory!"));
             return true;
         }else{

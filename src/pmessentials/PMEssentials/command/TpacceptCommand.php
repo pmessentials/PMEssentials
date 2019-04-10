@@ -17,6 +17,10 @@ use pocketmine\utils\TextFormat;
 class TpacceptCommand extends SimpleExecutor {
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool{
+        if(!$sender instanceof Player){
+            $sender->sendMessage(TextFormat::colorize("&4Sender needs to be a player."));
+            return true;
+        }
         switch ($label) {
             case "tpaccept":
                 $ev = new TeleportRespondEvent($sender, true);

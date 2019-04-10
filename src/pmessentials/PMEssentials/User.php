@@ -26,6 +26,7 @@ class User{
     protected $godmode = false;
     /** @var Position */
     protected $lastpos;
+    protected $muted = false;
 
     public function getUserMap() : UserMap{
         return $this->map;
@@ -144,5 +145,21 @@ class User{
 
     public function setLastPos(Position $pos) : void{
         $this->lastpos = $pos;
+    }
+
+    public function isMuted() : bool{
+        return $this->muted;
+    }
+
+    public function setMuted(bool $mute) : void{
+        $this->mutef = $mute;
+    }
+
+    public function mute() : void{
+        $this->muted = true;
+    }
+
+    public function unmute() : void{
+        $this->muted = false;
     }
 }

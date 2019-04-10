@@ -17,7 +17,7 @@ class SizeCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."size.other")){
-            $match = $this->plugin->getServer()->matchPlayer($args[1]);
+            $match = $match = $this->api->matchPlayer($args[1], $sender);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[1]."&r&4 not found!"));
                 return true;

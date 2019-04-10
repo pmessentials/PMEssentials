@@ -16,7 +16,7 @@ class RealNameCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0])){
-            $match = $this->api->matchNicknames($args[0]);
+            $match = $this->api->matchNicknames($args[0], $sender);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
                 return true;

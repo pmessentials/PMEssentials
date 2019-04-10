@@ -240,3 +240,6 @@ permissions:
      pmessentials.milk.instant:
       default: op
       description: "bypass the cooldown"
+   pmessentials.mute:
+    default: op
+    description: "(un)mute a player"

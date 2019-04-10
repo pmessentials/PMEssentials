@@ -17,17 +17,12 @@ class VanishCommand extends SimpleExecutor {
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.other")){
-            $match = $this->plugin->getServer()->matchPlayer($args[0]);
-            if(empty($match)){
-                if($this->api->getVanishedPlayer($args[0]) !== null){
-                    $player = $this->api->getVanishedPlayer($args[0]);
-                }else{
-                    $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
-                    return true;
-                }
-            }else{
-                $player = $match[0];
+            $match = $match = $this->api->matchPlayer($args[0], $sender);
+            if (empty($match)) {
+                $sender->sendMessage(TextFormat::colorize("&4Player with name &c" . $args[0] . "&r&4 not found!"));
+                return true;
             }
+            $player = $match[0]->getPlayer();
         }elseif(isset($args[1])){
             $sender->sendMessage(TextFormat::colorize("&4You don't have permission to vanish someone else!"));
             return true;

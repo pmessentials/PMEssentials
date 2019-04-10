@@ -20,6 +20,7 @@ List of commands:
 - [x] /heal
 - [x] /i
 - [x] /milk
+- [x] /mute
 - [x] /nick
 - [x] /nuke
 - [x] /ping

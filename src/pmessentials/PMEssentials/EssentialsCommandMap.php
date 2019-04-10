@@ -17,6 +17,7 @@ use pmessentials\PMEssentials\command\GodCommand;
 use pmessentials\PMEssentials\command\HealCommand;
 use pmessentials\PMEssentials\command\ICommand;
 use pmessentials\PMEssentials\command\MilkCommand;
+use pmessentials\PMEssentials\command\MuteCommand;
 use pmessentials\PMEssentials\command\NickCommand;
 use pmessentials\PMEssentials\command\NukeCommand;
 use pmessentials\PMEssentials\command\PingCommand;
@@ -432,6 +433,19 @@ class EssentialsCommandMap {
             $this->register($cmd);
         }catch (\Throwable $e){
             $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: milk"));
+            $this->error($e);
+        }
+
+        try{
+            $cmd = new SimpleCommand("mute", $this->plugin);
+            $cmd->setExecutor(new MuteCommand());
+            $cmd->setDescription("mute/unmute a player");
+            $cmd->setPermission(Main::PERMISSION_PREFIX."mute");
+            $cmd->setAliases(["unmute"]);
+            $cmd->setUsage("/(un)mute <player>");
+            $this->register($cmd);
+        }catch (\Throwable $e){
+            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: mute"));
             $this->error($e);
         }
     }

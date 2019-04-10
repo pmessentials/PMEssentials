@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials;
 
+use dominate\Command;
 use pmessentials\PMEssentials\Main;
 use pmessentials\PMEssentials\module\ModuleManager;
 use pmessentials\PMEssentials\module\PowertoolModule;
+use pocketmine\command\CommandSender;
 use pocketmine\item\Item;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
@@ -21,14 +23,43 @@ class API{
         $this->plugin = $plugin;
     }
 
-    public function matchNicknames(string $partialName) : array{
+    public function matchNicknames(string $partialName, CommandSender $sender = null) : array{
         $partialName = strtolower(TextFormat::clean($partialName));
         $matchedPlayers = [];
-        foreach($this->plugin->getServer()->getOnlinePlayers() as $player){
+        $players = $this->plugin->getServer()->getOnlinePlayers();
+        if($sender !== null && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see")){
+            array_merge($players, $this->getVanishedPlayers());
+        }
+        foreach($players as $player){
             if(strtolower($player->getDisplayName()) === $partialName){
                 $matchedPlayers = [$player];
                 break;
             }elseif(stripos(strtolower($player->getDisplayName()), $partialName) !== false){
+                $matchedPlayers[] = $player;
+            }
+        }
+
+        return $matchedPlayers;
+    }
+
+    /**
+     * @param string $partialName
+     * @param CommandSender $sender
+     *
+     * @return Player[]
+     */
+    public function matchPlayer(string $partialName, CommandSender $sender = null) : array{
+        $partialName = strtolower($partialName);
+        $matchedPlayers = [];
+        $players = $this->plugin->getServer()->getOnlinePlayers();
+        if($sender !== null && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see")){
+            array_merge($players, $this->getVanishedPlayers());
+        }
+        foreach($players as $player){
+            if($player->getLowerCaseName() === $partialName){
+                $matchedPlayers = [$player];
+                break;
+            }elseif(stripos($player->getName(), $partialName) !== false){
                 $matchedPlayers[] = $player;
             }
         }
@@ -135,10 +166,26 @@ class API{
     }
 
     public function hasTeleportRequest(Player $player) : bool{
-        $this->plugin->getUserMap()->fromPlayer($player)->hasTeleportRequest();
+        return $this->plugin->getUserMap()->fromPlayer($player)->hasTeleportRequest();
     }
 
     public function getTeleportRequest(Player $player) : TeleportRequest{
-        $this->plugin->getUserMap()->fromPlayer($player)->getTeleportRequest();
+        return $this->plugin->getUserMap()->fromPlayer($player)->getTeleportRequest();
+    }
+
+    public function isMuted(Player $player) : bool{
+        return $this->plugin->getUserMap()->fromPlayer($player)->isMuted();
+    }
+
+    public function setMuted(Player $player, bool $mute) : void{
+        $this->plugin->getUserMap()->fromPlayer($player)->setMuted($mute);
+    }
+
+    public function mute(Player $player) : void{
+        $this->plugin->getUserMap()->fromPlayer($player)->mute();
+    }
+
+    public function unmute(Player $player) : void{
+        $this->plugin->getUserMap()->fromPlayer($player)->unmute();
     }
 }
