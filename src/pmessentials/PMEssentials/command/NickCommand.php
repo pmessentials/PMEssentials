@@ -51,7 +51,11 @@ class NickCommand extends SimpleExecutor {
             $str = TextFormat::clean($str);
         }
         if(!$sender->hasPermission(Main::PERMISSION_PREFIX."nick.custom") && strtolower($player->getName()) != strtolower(TextFormat::clean($str))){
-            $sender->sendMessage(TextFormat::colorize("&4You're not allowed to set custom nicknames"));
+            $sender->sendMessage(TextFormat::colorize("&4You're not allowed to set custom nicknames."));
+            return true;
+        }
+        if(strlen(TextFormat::clean($str)) > 16){
+            $sender->sendMessage(TextFormat::colorize("&4That nickname is too long!"));
             return true;
         }
 
@@ -60,7 +64,7 @@ class NickCommand extends SimpleExecutor {
         if($ev->isCancelled()){
             return true;
         }
-        $player->setDisplayName($ev->getCheckedNick().TextFormat::RESET);
+        $player->setDisplayName($ev->getCheckedNick());
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6Your nick has been set to &c".$ev->getCheckedNick()."&r&6."));
         }else{
