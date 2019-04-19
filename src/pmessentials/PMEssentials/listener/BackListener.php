@@ -14,7 +14,9 @@ class BackListener extends ListenerBase {
     public function onTeleport(EntityTeleportEvent $event){
         $player = $event->getEntity();
         if($player instanceof Player){
-            $this->api->getUserMap()->fromPlayer($player)->setLastPos($player->getPosition());
+            if($this->api->getUserMap()->fromPlayer($player) !== null){
+                $this->api->getUserMap()->fromPlayer($player)->setLastPos($player->getPosition());
+            }
         }
     }
 
