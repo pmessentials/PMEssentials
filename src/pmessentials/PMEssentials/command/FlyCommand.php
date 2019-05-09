@@ -15,6 +15,14 @@ use pocketmine\utils\TextFormat;
 
 class FlyCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "fly";
+        $this->description = "enable/disable flight";
+        $this->permission = Main::PERMISSION_PREFIX."fly.self";
+        $this->usage = "/fly [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."fly.other")){

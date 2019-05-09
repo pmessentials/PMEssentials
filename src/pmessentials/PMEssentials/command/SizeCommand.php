@@ -14,6 +14,15 @@ use pocketmine\utils\TextFormat;
 
 class SizeCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "size";
+        $this->description = "change your size";
+        $this->permission = Main::PERMISSION_PREFIX."size.self";
+        $this->aliases = ["scale"];
+        $this->usage = "/size [size] [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."size.other")){

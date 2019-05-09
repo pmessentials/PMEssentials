@@ -17,6 +17,12 @@ abstract class SimpleExecutor implements CommandExecutor {
     protected $plugin;
     protected $api;
 
+    public $name;
+    public $description;
+    public $permission;
+    public $aliases = [];
+    public $usage;
+
     public function __construct(){
         $this->api = API::getAPI();
         $this->plugin = $this->api->getPlugin();

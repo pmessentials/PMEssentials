@@ -15,6 +15,14 @@ use pocketmine\utils\TextFormat;
 
 class BurnCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "burn";
+        $this->description = "set someone on fire";
+        $this->permission = Main::PERMISSION_PREFIX."burn";
+        $this->usage = "/burn [player] [seconds]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0])){

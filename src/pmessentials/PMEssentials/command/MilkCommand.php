@@ -19,6 +19,15 @@ class MilkCommand extends SimpleExecutor {
     protected $cooldown = [];
     protected $wait = 2*60;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "milk";
+        $this->description = "clear all effects";
+        $this->permission = Main::PERMISSION_PREFIX."milk.self";
+        $this->aliases = ["cure"];
+        $this->usage = "/milk [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $this->wait = $this->plugin->config->get("milk.cooldown");

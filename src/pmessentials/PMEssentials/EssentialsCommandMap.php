@@ -35,14 +35,7 @@ use pmessentials\PMEssentials\command\TpahereCommand;
 use pmessentials\PMEssentials\command\TreeCommand;
 use pmessentials\PMEssentials\command\UsageCommand;
 use pmessentials\PMEssentials\command\VanishCommand;
-use pmessentials\PMEssentials\command\WildCommand;
-use pmessentials\PMEssentials\listener\PowertoolListener;
-use pmessentials\PMEssentials\Main;
 use pocketmine\command\Command;
-use pocketmine\command\CommandMap;
-use pocketmine\command\PluginCommand;
-use pocketmine\command\SimpleCommandMap;
-use pocketmine\entity\Entity;
 use pocketmine\utils\TextFormat;
 
 class EssentialsCommandMap {
@@ -69,384 +62,56 @@ class EssentialsCommandMap {
     }
 
     private function setDefaultCommands() : void{
-        try{
-            $cmd = new SimpleCommand("nick", $this->plugin);
-            $cmd->setExecutor(new NickCommand());
-            $cmd->setDescription("change your nickname");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."nick.self");
-            $cmd->setAliases(["name", "nickname"]);
-            $cmd->setUsage("/nick [nick] [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: nick"));
-            $this->error($e);
-        }
-
-
-        try{
-            $cmd = new SimpleCommand("heal", $this->plugin);
-            $cmd->setExecutor(new HealCommand());
-            $cmd->setDescription("heal a player");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."heal.self");
-            $cmd->setUsage("/heal [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: heal"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("feed", $this->plugin);
-            $cmd->setExecutor(new FeedCommand());
-            $cmd->setDescription("feed a player");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."feed.self");
-            $cmd->setUsage("/feed [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: feed"));
-            $this->error($e);
-        }
-
-        try{
-            $pmgm = $this->plugin->getServer()->getCommandMap()->getCommand("gamemode");
+        $pmgm = $this->plugin->getServer()->getCommandMap()->getCommand("gamemode");
+        if(isset($pmgm)){
             $this->plugin->getServer()->getCommandMap()->unregister($pmgm);
-
-            $cmd = new SimpleCommand("gamemode", $this->plugin);
-            $cmd->setExecutor(new GameModeCommand());
-            $cmd->setDescription("change your gamemode");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."gamemode.self");
-            $cmd->setAliases(["gm", "gms", "gmc", "gma", "gmspc", "gmv"]);
-            $cmd->setUsage("/gamemode <mode> [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: gamemode"));
-            $this->error($e);
         }
 
-        try{
-            $cmd = new SimpleCommand("i", $this->plugin);
-            $cmd->setExecutor(new ICommand());
-            $cmd->setDescription("gives you an item");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."i");
-            $cmd->setUsage("/i <item>:[meta] [count]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: i"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("size", $this->plugin);
-            $cmd->setExecutor(new SizeCommand());
-            $cmd->setDescription("resize a player");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."size.self");
-            $cmd->setAliases(["scale"]);
-            $cmd->setUsage("/size [size] [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: size"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("realname", $this->plugin);
-            $cmd->setExecutor(new RealNameCommand());
-            $cmd->setDescription("view someone's real name");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."realname");
-            $cmd->setUsage("/realname <nick>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: realname"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("usage", $this->plugin);
-            $cmd->setExecutor(new UsageCommand());
-            $cmd->setDescription("Check a command's usage");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."usage");
-            $cmd->setAliases(["howtouse"]);
-            $cmd->setUsage("/usage <command>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: usage"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("powertool", $this->plugin);
-            $cmd->setExecutor(new PowertoolCommand());
-            $cmd->setDescription("Assign a command to an item");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."powertool.set");
-            $cmd->setAliases(["pt"]);
-            $cmd->setUsage("/powertool <command>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: powertool"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("ping", $this->plugin);
-            $cmd->setExecutor(new PingCommand());
-            $cmd->setDescription("Pong!");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."ping");
-            $cmd->setUsage("/ping");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: ping"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("fly", $this->plugin);
-            $cmd->setExecutor(new FlyCommand());
-            $cmd->setDescription("enable/disable flight");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."fly.self");
-            $cmd->setUsage("/fly [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: fly"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("vanish", $this->plugin);
-            $cmd->setExecutor(new VanishCommand());
-            $cmd->setDescription("enable/disable vanish");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."vanish.self");
-            $cmd->setAliases(["v", "invis"]);
-            $cmd->setUsage("/vanish [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: vanish"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("speed", $this->plugin);
-            $cmd->setExecutor(new SpeedCommand());
-            $cmd->setDescription("change your speed");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."speed.self");
-            $cmd->setAliases(["velocity"]);
-            $cmd->setUsage("/speed <speed> [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: speed"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("xyz", $this->plugin);
-            $cmd->setExecutor(new PosCommand());
-            $cmd->setDescription("show your coordinates");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."xyz.self");
-            $cmd->setAliases(["getpos", "position"]);
-            $cmd->setUsage("/xyz [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: xyz"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("godmode", $this->plugin);
-            $cmd->setExecutor(new GodCommand());
-            $cmd->setDescription("toggle godmode");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."godmode.self");
-            $cmd->setAliases(["god"]);
-            $cmd->setUsage("/godmode [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: godmode"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("nuke", $this->plugin);
-            $cmd->setExecutor(new NukeCommand());
-            $cmd->setDescription("nuke someone");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."nuke.self");
-            $cmd->setUsage("/nuke [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: nuke"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("smite", $this->plugin);
-            $cmd->setExecutor(new ThorCommand());
-            $cmd->setDescription("Thou hast been smitten");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."smite");
-            $cmd->setAliases(["thor", "lightning"]);
-            $cmd->setUsage("/smite");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("tree", $this->plugin);
-            $cmd->setExecutor(new TreeCommand());
-            $cmd->setDescription("Spawn a tree");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."tree");
-            $cmd->setUsage("/tree");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: smite"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("break", $this->plugin);
-            $cmd->setExecutor(new BreakCommand());
-            $cmd->setDescription("break the target block");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."break");
-            $cmd->setUsage("/break");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("thru", $this->plugin);
-            $cmd->setExecutor(new ThruCommand());
-            $cmd->setDescription("go through a block");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."thru");
-            $cmd->setUsage("/thru");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: break"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("tpa", $this->plugin);
-            $cmd->setExecutor(new TpaCommand());
-            $cmd->setDescription("send a tpa request");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."tpa");
-            $cmd->setUsage("/tpa <player>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: tpa"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("tpahere", $this->plugin);
-            $cmd->setExecutor(new TpahereCommand());
-            $cmd->setDescription("send a tpahere request");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."tpahere");
-            $cmd->setUsage("/tpahere <player>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: tpahere"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("tpaccept", $this->plugin);
-            $cmd->setExecutor(new TpacceptCommand());
-            $cmd->setDescription("accept/deny a teleport request");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."tpaccept");
-            $cmd->setAliases(["tpdeny"]);
-            $cmd->setUsage("/tpaccept");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: tpaccept/tpdeny"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("burn", $this->plugin);
-            $cmd->setExecutor(new BurnCommand());
-            $cmd->setDescription("set someone on fire");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."burn");
-            $cmd->setUsage("/burn [player] [seconds]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: burn"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("extinguish", $this->plugin);
-            $cmd->setExecutor(new ExtinguishCommand());
-            $cmd->setDescription("extinguish someone");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."extinguish");
-            $cmd->setAliases(["ext"]);
-            $cmd->setUsage("/extinguish [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: extinguish"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("back", $this->plugin);
-            $cmd->setExecutor(new BackCommand());
-            $cmd->setDescription("teleport to your previous position");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."back");
-            $cmd->setUsage("/back");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: back"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("clearinventory", $this->plugin);
-            $cmd->setExecutor(new ClearinventoryCommand());
-            $cmd->setDescription("clear someone's inventory");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."clearinventory.self");
-            $cmd->setAliases(["clear", "clearinv"]);
-            $cmd->setUsage("/clearinventory [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: clearinventory"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("broadcast", $this->plugin);
-            $cmd->setExecutor(new BroadcastCommand());
-            $cmd->setDescription("broadcast a message");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."broadcast");
-            $cmd->setAliases(["bc", "bcast"]);
-            $cmd->setUsage("/broadcast <message>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: broadcast"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("milk", $this->plugin);
-            $cmd->setExecutor(new MilkCommand());
-            $cmd->setDescription("clear all effects");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."milk.self");
-            $cmd->setAliases(["cure"]);
-            $cmd->setUsage("/milk [player]");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: milk"));
-            $this->error($e);
-        }
-
-        try{
-            $cmd = new SimpleCommand("mute", $this->plugin);
-            $cmd->setExecutor(new MuteCommand());
-            $cmd->setDescription("mute/unmute a player");
-            $cmd->setPermission(Main::PERMISSION_PREFIX."mute");
-            $cmd->setAliases(["unmute"]);
-            $cmd->setUsage("/(un)mute <player>");
-            $this->register($cmd);
-        }catch (\Throwable $e){
-            $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: mute"));
-            $this->error($e);
+        $commands = [
+            new NickCommand(),
+            new HealCommand(),
+            new FeedCommand(),
+            new GameModeCommand(),
+            new ICommand(),
+            new SizeCommand(),
+            new RealNameCommand(),
+            new UsageCommand(),
+            new PowertoolCommand(),
+            new PingCommand(),
+            new FlyCommand(),
+            new VanishCommand(),
+            new SpeedCommand(),
+            new PosCommand(),
+            new GodCommand(),
+            new NukeCommand(),
+            new ThorCommand(),
+            new TreeCommand(),
+            new BreakCommand(),
+            new ThruCommand(),
+            new TpaCommand(),
+            new TpahereCommand(),
+            new TpacceptCommand(),
+            new BurnCommand(),
+            new ExtinguishCommand(),
+            new BackCommand(),
+            new ClearinventoryCommand(),
+            new BroadcastCommand(),
+            new MilkCommand(),
+            new MuteCommand()
+        ];
+        foreach ($commands as $command){
+            try{
+                $cmd = new SimpleCommand($command->name, $this->plugin);
+                $cmd->setExecutor($command);
+                $cmd->setDescription($command->description);
+                $cmd->setPermission($command->permission);
+                $cmd->setAliases($command->aliases);
+                $cmd->setUsage($command->usage);
+                $this->register($cmd);
+            }catch (\Throwable $e){
+                $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: ".$command->name));
+                $this->error($e);
+            }
         }
     }
 

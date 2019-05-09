@@ -20,6 +20,14 @@ use pocketmine\utils\TextFormat;
 
 class NukeCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "nuke";
+        $this->description = "nuke someone";
+        $this->permission = Main::PERMISSION_PREFIX."nuke.self";
+        $this->usage = "/nuke [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."nuke.other")){

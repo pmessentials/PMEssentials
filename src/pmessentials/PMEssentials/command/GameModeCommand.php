@@ -19,6 +19,15 @@ class GameModeCommand extends SimpleExecutor {
     public const SPECTATOR = 3;
     public const VIEW = self::SPECTATOR;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "gamemode";
+        $this->description = "change your gamemode";
+        $this->permission = Main::PERMISSION_PREFIX."gamemode.self";
+        $this->aliases = ["gm", "gms", "gmc", "gma", "gmspc", "gmv"];
+        $this->usage = "/gamemode <mode> [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         switch (strtolower($label)){

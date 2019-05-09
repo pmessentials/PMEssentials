@@ -13,6 +13,15 @@ use pocketmine\utils\TextFormat;
 
 class PowertoolCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "powertool";
+        $this->description = "Assign a command to an item";
+        $this->permission = Main::PERMISSION_PREFIX."powertool.set";
+        $this->aliases = ["pt"];
+        $this->usage = "/pt <command>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $item = $sender->getInventory()->getItemInHand();

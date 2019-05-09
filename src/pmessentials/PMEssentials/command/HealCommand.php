@@ -17,6 +17,14 @@ class HealCommand extends SimpleExecutor {
     protected $cooldown = [];
     protected $wait = 2*60;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "heal";
+        $this->description = "heal a player";
+        $this->permission = Main::PERMISSION_PREFIX."heal.self";
+        $this->usage = "/heal [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $this->wait = $this->plugin->config->get("heal.cooldown");

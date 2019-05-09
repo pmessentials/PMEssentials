@@ -71,4 +71,4 @@ $vplayers = $api->getVanishedPlayers();
 //get vanished player from name
 $vplayer = $api->getVanishedPlayer("myplayer");
 ```
-It's not hard to use the PME API. If you want something changed in the API you can always open an issue with the API request template.
+If you want something changed in the API you can always open an issue with the API request template.

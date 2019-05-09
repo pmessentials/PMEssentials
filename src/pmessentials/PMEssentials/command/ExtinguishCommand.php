@@ -19,6 +19,15 @@ class ExtinguishCommand extends SimpleExecutor {
     protected $cooldown = [];
     protected $wait = 3*60;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "extinguish";
+        $this->description = "extinguish someone";
+        $this->permission = Main::PERMISSION_PREFIX."extinguish";
+        $this->aliases = ["ext"];
+        $this->usage = "/extinguish [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $this->wait = $this->plugin->config->get("extinguish.cooldown");

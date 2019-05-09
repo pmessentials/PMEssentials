@@ -29,6 +29,14 @@ use pocketmine\utils\TextFormat;
 
 class TreeCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "tree";
+        $this->description = "Spawn a tree";
+        $this->permission = Main::PERMISSION_PREFIX."tree";
+        $this->usage = "/tree";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){

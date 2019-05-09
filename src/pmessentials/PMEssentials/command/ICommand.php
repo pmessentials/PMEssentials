@@ -14,6 +14,14 @@ use pocketmine\utils\TextFormat;
 
 class ICommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "i";
+        $this->description = "gives you an item";
+        $this->permission = Main::PERMISSION_PREFIX."i";
+        $this->usage = "/i <item>:[meta] [count]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){

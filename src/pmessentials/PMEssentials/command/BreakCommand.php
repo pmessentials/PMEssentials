@@ -32,6 +32,14 @@ use pocketmine\utils\TextFormat;
 
 class BreakCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "break";
+        $this->description = "break a block";
+        $this->permission = Main::PERMISSION_PREFIX."break";
+        $this->usage = "/break";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){

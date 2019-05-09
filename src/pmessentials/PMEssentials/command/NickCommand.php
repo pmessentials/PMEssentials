@@ -14,6 +14,15 @@ use pocketmine\utils\TextFormat;
 
 class NickCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "nick";
+        $this->description = "change your nickname";
+        $this->permission = Main::PERMISSION_PREFIX."nick.self";
+        $this->aliases = ["name", "nickname"];
+        $this->usage = "/nick [nick] [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."nick.other")){

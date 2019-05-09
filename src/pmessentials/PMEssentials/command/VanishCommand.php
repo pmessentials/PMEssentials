@@ -14,6 +14,15 @@ use pocketmine\utils\TextFormat;
 
 class VanishCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "vanish";
+        $this->description = "enable/disable vanish";
+        $this->permission = Main::PERMISSION_PREFIX."vanish.self";
+        $this->aliases = ["v", "invis"];
+        $this->usage = "/vanish [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.other")){

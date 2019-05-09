@@ -16,6 +16,14 @@ use pocketmine\utils\TextFormat;
 
 class TpahereCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "tpahere";
+        $this->description = "send a tpahere request";
+        $this->permission = Main::PERMISSION_PREFIX."tpahere";
+        $this->usage = "/tpahere <player>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool{
         if (isset($args[0])) {
             $match = $match = $this->api->matchPlayer($args[0], $sender);

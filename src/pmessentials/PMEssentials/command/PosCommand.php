@@ -15,6 +15,15 @@ use pocketmine\utils\TextFormat;
 
 class PosCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "xyz";
+        $this->description = "show your coordinates";
+        $this->permission = Main::PERMISSION_PREFIX."xyz.self";
+        $this->aliases = ["getpos", "position", "pos"];
+        $this->usage = "/xyz [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."xyz.other")){

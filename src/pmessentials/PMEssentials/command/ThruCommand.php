@@ -38,6 +38,15 @@ class ThruCommand extends SimpleExecutor {
 
     protected $ignore = [0, 9, 8, 31, 175];
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "thru";
+        $this->description = "go through a block";
+        $this->permission = Main::PERMISSION_PREFIX."thru";
+        $this->aliases = ["through", "phase"];
+        $this->usage = "/thru";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!$sender instanceof Player){

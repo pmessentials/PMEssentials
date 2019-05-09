@@ -15,6 +15,15 @@ use pocketmine\utils\TextFormat;
 
 class SpeedCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "speed";
+        $this->description = "change your speed";
+        $this->permission = Main::PERMISSION_PREFIX."speed.self";
+        $this->aliases = ["velocity"];
+        $this->usage = "/speed <speed> [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[1]) && $sender->hasPermission(Main::PERMISSION_PREFIX."speed.other")){

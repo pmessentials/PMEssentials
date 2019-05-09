@@ -16,6 +16,15 @@ use pocketmine\utils\TextFormat;
 
 class MuteCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "mute";
+        $this->description = "mute/unmute a player";
+        $this->permission = Main::PERMISSION_PREFIX."mute";
+        $this->aliases = ["unmute"];
+        $this->usage = "/mute <player>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0])){

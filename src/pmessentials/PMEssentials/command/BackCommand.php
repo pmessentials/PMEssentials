@@ -16,6 +16,14 @@ class BackCommand extends SimpleExecutor {
     protected $cooldown = [];
     protected $wait = 60;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "back";
+        $this->description = "teleport to your previous position";
+        $this->permission = Main::PERMISSION_PREFIX."back";
+        $this->usage = "/back";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $this->wait = $this->plugin->config->get("back.cooldown");

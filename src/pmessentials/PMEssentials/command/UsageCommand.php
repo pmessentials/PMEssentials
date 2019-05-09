@@ -14,6 +14,15 @@ use pocketmine\utils\TextFormat;
 
 class UsageCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "usage";
+        $this->description = "Check a command's usage";
+        $this->permission = Main::PERMISSION_PREFIX."usage";
+        $this->aliases = ["howtouse"];
+        $this->usage = "/usage <command>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(!isset($args[0])){

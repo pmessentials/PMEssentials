@@ -16,6 +16,15 @@ use pocketmine\utils\TextFormat;
 
 class GodCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "godmode";
+        $this->description = "toggle godmode";
+        $this->permission = Main::PERMISSION_PREFIX."god.self";
+        $this->aliases = ["god"];
+        $this->usage = "/godmode [player]";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."god.other")){

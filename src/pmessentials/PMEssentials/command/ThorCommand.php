@@ -22,6 +22,15 @@ class ThorCommand extends SimpleExecutor {
     protected $cooldown = [];
     protected $wait = 5*60;
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "smite";
+        $this->description = "cast lightning";
+        $this->permission = Main::PERMISSION_PREFIX."smite";
+        $this->aliases = ["thor", "lightning"];
+        $this->usage = "/smite";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         $this->wait = $this->plugin->config->get("smite.cooldown");

@@ -17,6 +17,15 @@ use pocketmine\utils\TextFormat;
 
 class BroadcastCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "broadcast";
+        $this->description = "broadcast a message";
+        $this->permission = Main::PERMISSION_PREFIX."broadcast";
+        $this->aliases = ["bc", "bcast"];
+        $this->usage = "/broadcast <message>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
 

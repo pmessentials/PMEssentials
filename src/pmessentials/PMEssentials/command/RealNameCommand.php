@@ -13,6 +13,14 @@ use pocketmine\utils\TextFormat;
 
 class RealNameCommand extends SimpleExecutor {
 
+    public function __construct(){
+        parent::__construct();
+        $this->name = "realname";
+        $this->description = "view someone's real name";
+        $this->permission = Main::PERMISSION_PREFIX."realname";
+        $this->usage = "/realname <nick>";
+    }
+
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
         if(isset($args[0])){
