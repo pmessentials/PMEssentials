@@ -2,6 +2,8 @@
 A collection of essential PMMP commands, features and more. Heavily inspired by Essentials
 [![HitCount](http://hits.dwyl.io/pmessentials/PMEssentials.svg)](http://hits.dwyl.io/pmessentials/PMEssentials)
 
+This plugin works with **AutoCompleteAPI**, but it is not required to have this.
+
 ## Commands:
 List of commands:
 - [x] /back

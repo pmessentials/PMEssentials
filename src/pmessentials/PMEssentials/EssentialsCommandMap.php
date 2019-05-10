@@ -216,13 +216,13 @@ class EssentialsCommandMap {
             $cmd = $cmap->getCommand("tpa");
             if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof TpaCommand){
                 $data = $autoCompleteAPI->registerCommandData($cmd);
-                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player");
             }
 
             $cmd = $cmap->getCommand("tpahere");
             if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof TpahereCommand){
                 $data = $autoCompleteAPI->registerCommandData($cmd);
-                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player");
             }
 
             $cmd = $cmap->getCommand("burn");
