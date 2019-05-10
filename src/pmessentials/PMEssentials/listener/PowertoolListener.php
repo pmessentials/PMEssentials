@@ -38,7 +38,8 @@ class PowertoolListener extends ListenerBase {
                 if($ev->isCancelled()){
                     return;
                 }
-                $this->plugin->getServer()->dispatchCommand($player, $ev->getCommand());
+                $player->chat($ev->getCommand());
+
                 $player->addActionBarMessage(TextFormat::colorize("&6Command executed &cx".$user->data["powertools"]["counter"][$player->getName()]));
                 $user->data["powertools"]["cooldown"][$player->getName()] = microtime(true) + 0.05;
                 $event->setCancelled();

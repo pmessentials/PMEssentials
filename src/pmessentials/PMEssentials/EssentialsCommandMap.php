@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace pmessentials\PMEssentials;
 
+use AndreasHGK\AutoCompleteAPI\AutoCompleteAPI;
+use AndreasHGK\AutoCompleteAPI\CustomCommandData;
 use pmessentials\PMEssentials\command\BackCommand;
 use pmessentials\PMEssentials\command\BreakCommand;
 use pmessentials\PMEssentials\command\BroadcastCommand;
@@ -59,6 +61,7 @@ class EssentialsCommandMap {
     private function __construct(Main $plugin){
         $this->plugin = $plugin;
         $this->setDefaultCommands();
+        $this->setDefaultParameters();
     }
 
     private function setDefaultCommands() : void{
@@ -74,7 +77,7 @@ class EssentialsCommandMap {
             new GameModeCommand(),
             new ICommand(),
             new SizeCommand(),
-            new RealNameCommand(),
+            new RealNameCommand(), //todo: add autocompletion
             new UsageCommand(),
             new PowertoolCommand(),
             new PingCommand(),
@@ -111,6 +114,145 @@ class EssentialsCommandMap {
             }catch (\Throwable $e){
                 $this->plugin->getServer()->getLogger()->error(TextFormat::colorize("could not register command: ".$command->name));
                 $this->error($e);
+            }
+        }
+    }
+
+    private function setDefaultParameters() : void{
+        $autoCompleteAPI = $this->plugin->getServer()->getPluginManager()->getPlugin("AutoCompleteAPI");
+        if($autoCompleteAPI instanceof AutoCompleteAPI){
+            $this->plugin->getLogger()->notice("AutoCompleteAPI detected. Enabling support.");
+            $cmap = $this->plugin->getServer()->getCommandMap();
+            $cmd = $cmap->getCommand("nick");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof NickCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_STRING, "Nickname", true);
+                $data->normalParameter(0, 1, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("heal");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof HealCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("feed");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof FeedCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("gamemode");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof GameModeCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->arrayParameter(0, 0, "Gamemode", ["survival", "creative", "adventure", "spectator"], true);
+                $data->normalParameter(0, 1, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("i");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof ICommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->magicParameter(0, 0, CustomCommandData::MAGIC_TYPE_ITEM, "Item");
+                $data->normalParameter(0, 1, CustomCommandData::ARG_TYPE_INT, "Count", true);
+            }
+
+            $cmd = $cmap->getCommand("size");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof SizeCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_INT, "Size", true);
+                $data->normalParameter(0, 1, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("usage");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof UsageCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_COMMAND, "Command");
+            }
+
+            $cmd = $cmap->getCommand("powertool");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof PowertoolCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_COMMAND, "Command");
+                $data->normalParameter(1, 0, CustomCommandData::ARG_TYPE_MESSAGE, "Message");
+            }
+
+            $cmd = $cmap->getCommand("fly");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof FlyCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("vanish");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof VanishCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("speed");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof SpeedCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_INT, "Speed", true);
+                $data->normalParameter(0, 1, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("xyz");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof PosCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("godmode");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof GodCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("nuke");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof NukeCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("tpa");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof TpaCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("tpahere");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof TpahereCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("burn");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof BurnCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("extinguish");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof ExtinguishCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("clearinventory");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof ClearinventoryCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("milk");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof MilkCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
+            }
+
+            $cmd = $cmap->getCommand("mute");
+            if($cmd instanceof SimpleCommand && $cmd->getExecutor() instanceof MuteCommand){
+                $data = $autoCompleteAPI->registerCommandData($cmd);
+                $data->normalParameter(0, 0, CustomCommandData::ARG_TYPE_TARGET, "Player", true);
             }
         }
     }

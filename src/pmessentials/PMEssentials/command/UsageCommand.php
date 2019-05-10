@@ -29,8 +29,13 @@ class UsageCommand extends SimpleExecutor {
             $sender->sendMessage(TextFormat::colorize("&4Please enter a command to see the usage of"));
             return true;
         }
+        if($args[0][0] === "/"){
+            $str = substr($args[0], 1);
+        }else{
+            $str = $args[0];
+        }
         $cmap = $this->plugin->getServer()->getCommandMap();
-        $cmd = $cmap->getCommand($args[0]);
+        $cmd = $cmap->getCommand($str);
         if(!isset($cmd)){
             $sender->sendMessage(TextFormat::colorize("&4No command with name &c".$args[0]."&4 found."));
             return true;
