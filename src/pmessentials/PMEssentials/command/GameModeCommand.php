@@ -74,14 +74,14 @@ class GameModeCommand extends SimpleExecutor {
         }
 
         try{
-            $gmstr = self::toString($gm);
+            $gmstr = lcfirst(self::toString($gm));
         }catch (\Exception $e){
             $sender->sendMessage(TextFormat::colorize("&4Please enter valid gamemode!"));
             return true;
         }
 
         if(!$sender->hasPermission(Main::PERMISSION_PREFIX."gamemode.".$gmstr)){
-            $sender->sendMessage(TextFormat::colorize("&4You're not allowed to change someone's gamemode to &c".$gmstr."&4!"));
+            $sender->sendMessage(TextFormat::colorize("&4You're not allowed to change someone's gamemode to &c".ucfirst($gmstr)."&4!"));
             return true;
         }
 
@@ -106,10 +106,10 @@ class GameModeCommand extends SimpleExecutor {
 
         $player->setGamemode($gm);
         if($player === $sender){
-            $sender->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".$gmstr."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".ucifrst($gmstr)."&r&6."));
         }else{
-            $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's gamemode to &r&c".$gmstr."&r&6."));
-            $player->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".$gmstr."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's gamemode to &r&c".ucfirst($gmstr)."&r&6."));
+            $player->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".ucfirst($gmstr)."&r&6."));
         }
         return true;
     }

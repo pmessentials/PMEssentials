@@ -13,7 +13,7 @@ class PlayerSizeChangeEvent extends PlayerCommandEvent implements Cancellable{
     protected $size;
     protected $canceled = false;
 
-    public function __construct(Player $player, CommandSender $sender, float $size){
+    public function __construct($player, $sender, $size){
         parent::__construct($player, $sender);
         $this->size = $size;
     }
