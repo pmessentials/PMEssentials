@@ -20,14 +20,14 @@ class GodCommand extends SimpleExecutor {
         parent::__construct();
         $this->name = "godmode";
         $this->description = "toggle godmode";
-        $this->permission = Main::PERMISSION_PREFIX."god.self";
+        $this->permission = Main::PERMISSION_PREFIX."godmode.self";
         $this->aliases = ["god"];
         $this->usage = "/godmode [player]";
     }
 
     public function onCommand(CommandSender $sender, pmCommand $command, string $label, array $args): bool
     {
-        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."god.other")){
+        if(isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."godmode.other")){
             $match = $match = $this->api->matchPlayer($args[0], $sender);
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$args[0]."&r&4 not found!"));
