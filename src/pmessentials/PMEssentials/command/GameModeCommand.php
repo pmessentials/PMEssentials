@@ -74,7 +74,7 @@ class GameModeCommand extends SimpleExecutor {
         }
 
         try{
-            $gmstr = lcfirst(self::toString($gm));
+            $gmstr = strtolower(self::toString($gm));
         }catch (\Exception $e){
             $sender->sendMessage(TextFormat::colorize("&4Please enter valid gamemode!"));
             return true;
