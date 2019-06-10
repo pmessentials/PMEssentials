@@ -106,7 +106,7 @@ class GameModeCommand extends SimpleExecutor {
 
         $player->setGamemode($gm);
         if($player === $sender){
-            $sender->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".ucifrst($gmstr)."&r&6."));
+            $sender->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".ucfrst($gmstr)."&r&6."));
         }else{
             $sender->sendMessage(TextFormat::colorize("&6Set ".$player->getName()."&6's gamemode to &r&c".ucfirst($gmstr)."&r&6."));
             $player->sendMessage(TextFormat::colorize("&6Your gamemode has been set to &c".ucfirst($gmstr)."&r&6."));
