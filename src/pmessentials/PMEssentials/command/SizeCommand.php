@@ -45,8 +45,8 @@ class SizeCommand extends SimpleExecutor {
 
         if(!isset($args[0])){
             $size = 1;
-        }elseif(is_numeric($args[0]) && $args[0] > 0){
-            $size = $args[0];
+        }elseif(is_numeric((float)$args[0]) && (float)$args[0] > 0){
+            $size = (float)$args[0];
         }else{
             $sender->sendMessage(TextFormat::colorize("&4Please enter a valid size, greater than 0!"));
             return true;
