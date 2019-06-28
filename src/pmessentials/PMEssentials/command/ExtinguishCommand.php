@@ -61,6 +61,7 @@ class ExtinguishCommand extends SimpleExecutor {
 
         if(!$player->isOnFire()){
             $sender->sendMessage(TextFormat::colorize("&4Target is not on fire."));
+            return true;
         }
 
         $ev = new PlayerExtinguishEvent($player, $sender);

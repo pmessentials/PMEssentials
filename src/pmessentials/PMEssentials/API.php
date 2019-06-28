@@ -48,12 +48,12 @@ class API{
      *
      * @return Player[]
      */
-    public function matchPlayer(string $partialName, CommandSender $sender = null) : array{
+    public function matchPlayer(string $partialName, bool $includevanished = false) : array{
         $partialName = strtolower($partialName);
         $matchedPlayers = [];
         $players = $this->plugin->getServer()->getOnlinePlayers();
-        if($sender !== null && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see")){
-            array_merge($players, $this->getVanishedPlayers());
+        if($includevanished){
+            $players = $players + $this->getVanishedPlayers();
         }
         foreach($players as $player){
             if($player->getLowerCaseName() === $partialName){

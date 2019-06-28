@@ -14,14 +14,4 @@ class PlayerExtinguishEvent extends PlayerCommandEvent implements Cancellable{
         parent::__construct($player, $sender);
     }
 
-    public function isCancelled(): bool
-    {
-        return $this->canceled;
-    }
-
-    public function setCancelled(bool $value = true) : void
-    {
-        $this->canceled = $value;
-    }
-
 }
