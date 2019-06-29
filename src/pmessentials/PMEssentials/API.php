@@ -23,12 +23,12 @@ class API{
         $this->plugin = $plugin;
     }
 
-    public function matchNicknames(string $partialName, CommandSender $sender = null) : array{
+    public function matchNicknames(string $partialName, bool $includevanished = false) : array{
         $partialName = strtolower(TextFormat::clean($partialName));
         $matchedPlayers = [];
         $players = $this->plugin->getServer()->getOnlinePlayers();
-        if($sender !== null && $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see")){
-            array_merge($players, $this->getVanishedPlayers());
+        if($includevanished){
+            $players = $players + $this->getVanishedPlayers();
         }
         foreach($players as $player){
             if(strtolower($player->getDisplayName()) === $partialName){

@@ -86,7 +86,7 @@ class GameModeCommand extends SimpleExecutor {
         }
 
         if(isset($target) && $sender->hasPermission(Main::PERMISSION_PREFIX."gamemode.other")){
-            $match = $match = $this->api->matchPlayer($target, $sender);
+            $match = $match = $this->api->matchPlayer($target, $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see"));
             if(empty($match)){
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c".$target."&r&4 not found!"));
                 return true;

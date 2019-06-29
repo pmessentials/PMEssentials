@@ -40,7 +40,7 @@ class FeedCommand extends SimpleExecutor {
         }
 
         if (isset($args[0]) && $sender->hasPermission(Main::PERMISSION_PREFIX."feed.other")) {
-            $match = $match = $this->api->matchPlayer($args[0], $sender);
+            $match = $match = $this->api->matchPlayer($args[0], $sender->hasPermission(Main::PERMISSION_PREFIX."vanish.see"));
             if (empty($match)) {
                 $sender->sendMessage(TextFormat::colorize("&4Player with name &c" . $args[0] . "&r&4 not found!"));
                 return true;
