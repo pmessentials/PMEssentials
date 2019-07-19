@@ -10,6 +10,7 @@ use pmessentials\PMEssentials\Main;
 use pmessentials\PMEssentials\module\VanishModule;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerExhaustEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -24,5 +25,10 @@ class GodmodeListener extends ListenerBase {
             $event->setCancelled();
         }
     }
-
+    public function onExhaust(PlayerExhaustEvent $event) : void{
+        $player = $event->getEntity();
+        if($player instanceof Player && $this->api->isGodmode($player)){
+            $event->setCancelled();
+        }
+    }
 }
