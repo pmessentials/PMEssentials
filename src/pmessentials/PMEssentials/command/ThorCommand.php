@@ -13,7 +13,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\entity\Entity;
 use pocketmine\level\Explosion;
 use pocketmine\level\Position;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
@@ -68,7 +68,7 @@ class ThorCommand extends SimpleExecutor {
 
     public function addStrike(Position $p){
         $level = $p->getLevel();
-        $light = new AddEntityPacket();
+        $light = new AddActorPacket();
         $light->type = 93;
         $light->entityRuntimeId = Entity::$entityCount++;
         $light->metadata = array();

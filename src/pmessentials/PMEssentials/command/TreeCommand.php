@@ -22,7 +22,7 @@ use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\generator\object\SpruceTree;
 use pocketmine\level\generator\populator\Tree;
 use pocketmine\level\Position;
-use pocketmine\network\mcpe\protocol\AddEntityPacket;
+use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\Player;
 use pocketmine\utils\Random;
 use pocketmine\utils\TextFormat;
