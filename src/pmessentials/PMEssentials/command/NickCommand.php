@@ -63,7 +63,7 @@ class NickCommand extends SimpleExecutor {
             $sender->sendMessage(TextFormat::colorize("&4You're not allowed to set custom nicknames."));
             return true;
         }
-        if(strlen(TextFormat::clean($str)) > 16){
+        if(strlen(TextFormat::clean($str)) >= 16){
             $sender->sendMessage(TextFormat::colorize("&4That nickname is too long!"));
             return true;
         }

@@ -59,7 +59,7 @@ class BurnCommand extends SimpleExecutor {
         if($player === $sender){
             $sender->sendMessage(TextFormat::colorize("&6Burned yourself for &c".$ev->getSeconds()."&6 seconds."));
         }else{
-            $sender->sendMessage(TextFormat::colorize("&6Burned &c".$player."&r&6 for &c".$ev->getSeconds()."&6 seconds."));
+            $sender->sendMessage(TextFormat::colorize("&6Burned &c".$player->getName()."&r&6 for &c".$ev->getSeconds()."&6 seconds."));
         }
         return true;
     }
