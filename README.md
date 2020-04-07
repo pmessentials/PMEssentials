@@ -42,15 +42,20 @@ List of commands:
 - [x] /vanish
 - [x] /xyz
 - [ ] /afk
+- [ ] /block
 - [ ] /commandspy
 - [ ] /delhome
 - [ ] /delwarp
 - [ ] /home
+- [ ] /kick
+- [ ] /kickall
 - [ ] /server
 - [ ] /sethome
 - [ ] /setspawn
 - [ ] /setwarp
 - [ ] /spawn
+- [ ] /sudo
+- [ ] /top
 - [ ] /tp *(custom)*
 - [ ] /tpo
 - [ ] /tpohere
