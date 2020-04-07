@@ -55,6 +55,7 @@ List of commands:
 - [ ] /tpo
 - [ ] /tpohere
 - [ ] /warp
+- [ ] /warps
 - [ ] *a ton more...*
 
 ## API:
