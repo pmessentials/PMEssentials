@@ -49,6 +49,7 @@ List of commands:
 - [ ] /home
 - [ ] /kick
 - [ ] /kickall
+- [ ] /reply
 - [ ] /server
 - [ ] /sethome
 - [ ] /setspawn
