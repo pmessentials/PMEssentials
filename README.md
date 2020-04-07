@@ -42,6 +42,7 @@ List of commands:
 - [x] /vanish
 - [x] /xyz
 - [ ] /afk
+- [ ] /commandspy
 - [ ] /delhome
 - [ ] /delwarp
 - [ ] /home
